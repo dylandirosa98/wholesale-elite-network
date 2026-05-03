@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/webp" href="/favicon.webp">
+  <title>You're In!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #09090F;
+      color: #F5F5F7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .card {
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      padding: 40px 30px;
+      background: rgba(18, 15, 28, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 120px -40px rgba(212, 175, 55, 0.2);
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(240, 199, 94, 0.15);
+      border-top-color: #F0C75E;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 24px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .check {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D4AF37, #E5B83B);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .check svg { width: 28px; height: 28px; fill: white; }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 15px;
+      color: rgba(245, 245, 247, 0.5);
+      line-height: 1.5;
+    }
+
+    .status-text { transition: opacity 0.3s ease; }
+
+    /* Fallback form container */
+    .fallback-form {
+      display: none;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 20px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .fallback-form iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      background: #fff;
+      border-radius: 16px;
+    }
+    .fallback-hint {
+      display: none;
+      margin-top: 12px;
+      font-size: 13px;
+      color: rgba(245, 245, 247, 0.35);
+    }
+
+    /* Ambient orb */
+    .orb {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: #B8860B;
+      filter: blur(120px);
+      opacity: 0.25;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb"></div>
+
+  <div class="card" id="card">
+    <div class="spinner" id="spinner"></div>
+    <div class="check" id="check">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+    </div>
+    <h2 id="heading">Submitting...</h2>
+    <p class="status-text" id="subtext">Hang tight, we're getting you access.</p>
+  </div>
+
+  <!-- Fallback: pre-filled CRM form in styled iframe -->
+  <div class="fallback-form" id="fallbackForm">
+    <iframe id="crmFrame"></iframe>
+  </div>
+  <p class="fallback-hint" id="fallbackHint">Your info is pre-filled. Just tap Continue below.</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const firstName = params.get('first_name') || '';
+    const lastName = params.get('last_name') || '';
+    const phone = params.get('phone') || '';
+    const email = params.get('email') || '';
+
+    // Build the pre-filled CRM form URL
+    const formUrl = '#form-placeholder' +
+      '?first_name=' + encodeURIComponent(firstName) +
+      '&last_name=' + encodeURIComponent(lastName) +
+      '&phone=' + encodeURIComponent(phone) +
+      '&email=' + encodeURIComponent(email);
+
+    // Try server-side auto-submit first
+    async function submitViaPuppeteer() {
+      try {
+        const res = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
+            phone: phone,
+            email: email
+          })
+        });
+        const data = await res.json();
+        return data.success;
+      } catch(e) {
+        return false;
+      }
+    }
+
+    function showSuccess() {
+      document.getElementById('spinner').style.display = 'none';
+      document.getElementById('check').style.display = 'flex';
+      document.getElementById('heading').textContent = "You're in!";
+      document.getElementById('subtext').textContent = 'Check your email for the blueprint, contracts, scripts, and calculators.';
+      document.getElementById('fallbackForm').style.display = 'none';
+      document.getElementById('fallbackHint').style.display = 'none';
+    }
+
+    function showFallbackForm() {
+      // Show the pre-filled CRM form for one-click submit
+      document.getElementById('spinner').style.display = 'none';
+      document.getElementById('heading').textContent = 'Almost there!';
+      document.getElementById('subtext').textContent = 'Tap Continue to get your resources.';
+      document.getElementById('crmFrame').src = formUrl;
+      document.getElementById('fallbackForm').style.display = 'block';
+      document.getElementById('fallbackHint').style.display = 'block';
+    }
+
+    // Attempt auto-submit
+    submitViaPuppeteer().then(success => {
+      if (success) {
+        showSuccess();
+      } else {
+        // Auto-submit failed (likely reCAPTCHA) - show pre-filled form
+        showFallbackForm();
+      }
+    });
+  </script>
+
+</body>
+</html>

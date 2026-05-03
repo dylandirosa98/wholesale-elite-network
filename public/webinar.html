@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/webp" href="/favicon.webp">
+  <title>Wholesale Elite Network | Free Live Training — Get Your First Wholesale Deal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold-deep: #B8860B;
+      --gold-main: #D4AF37;
+      --gold-mid: #E5B83B;
+      --gold-light: #F0C75E;
+      --gold-glow: #F5D77E;
+      --bg-primary: #09090F;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --bg-card-solid: rgba(20, 20, 30, 0.6);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(240, 199, 94, 0.3);
+      --text-primary: #F5F5F7;
+      --text-secondary: rgba(245, 245, 247, 0.6);
+      --text-muted: rgba(245, 245, 247, 0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Ambient background ── */
+    .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .ambient-orb { position: absolute; border-radius: 50%; filter: blur(120px); }
+    .ambient-orb--1 { width: 600px; height: 600px; background: var(--gold-deep); top: -200px; left: 50%; transform: translateX(-50%); opacity: 0.3; }
+    .ambient-orb--2 { width: 400px; height: 400px; background: var(--gold-main); bottom: -100px; right: -100px; opacity: 0.15; }
+
+    .grid-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+    }
+
+    .noise {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 256px;
+    }
+
+    .page { position: relative; z-index: 2; }
+
+    /* ── Announcement bar ── */
+    .bar {
+      position: relative;
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-mid));
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .bar .dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      margin-right: 8px;
+      box-shadow: 0 0 0 0 rgba(255,255,255,0.6);
+      animation: pulse 1.6s infinite;
+      vertical-align: middle;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.6); }
+      70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: center;
+      padding: 22px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: clamp(20px, 3vh, 32px) 24px 40px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 100px;
+      background: rgba(240, 199, 94, 0.1);
+      border: 1px solid rgba(240, 199, 94, 0.25);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-glow);
+      margin-bottom: 28px;
+    }
+    .badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      box-shadow: 0 0 10px var(--gold-light);
+    }
+
+    h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      margin-bottom: 22px;
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.75) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 620px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+    .sub strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ── Event bar ── */
+    .event-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .event-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .event-pill:first-child { border-radius: 10px 0 0 10px; }
+    .event-pill:last-child { border-radius: 0 10px 10px 0; }
+    .event-pill + .event-pill { border-left: 0; }
+    .event-pill svg { width: 16px; height: 16px; flex-shrink: 0; stroke: var(--gold-glow); }
+
+    /* ── Video ── */
+    .video-box {
+      background: var(--bg-card-solid);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      aspect-ratio: 16/9;
+      max-width: 720px;
+      margin: 0 auto 44px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03),
+        0 20px 60px -10px rgba(0, 0, 0, 0.5),
+        0 0 120px -20px rgba(212, 175, 55, 0.15);
+    }
+    .video-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #0f0f18 0%, #1a1530 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .play-stack { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .play-circle {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: rgba(240, 199, 94, 0.15);
+      border: 2px solid var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 0 40px rgba(240, 199, 94, 0.25);
+    }
+    .play-circle:hover { transform: scale(1.08); }
+    .play-circle svg { width: 26px; height: 26px; fill: var(--gold-glow); margin-left: 4px; }
+    .play-label {
+      font-size: 11px;
+      color: var(--gold-glow);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .video-caption {
+      position: absolute;
+      bottom: 14px; left: 0; right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── Form ── */
+    .form-wrap { max-width: 500px; margin: 0 auto; padding: 0 24px; }
+    .form-wrap input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px 18px;
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 12px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      outline: none;
+    }
+    .form-wrap input:focus {
+      border-color: var(--gold-light);
+      background: rgba(240, 199, 94, 0.05);
+    }
+    .form-wrap input::placeholder { color: var(--text-muted); }
+
+    .cta-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-mid));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 18px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 12px;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.45);
+    }
+
+    .privacy {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: 720px;
+      margin: 64px auto 40px;
+      padding: 0 24px;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--border-subtle); }
+    .divider-text {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* ── Bullets ── */
+    .bullets {
+      max-width: 720px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .bullet {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 22px;
+      transition: all 0.3s ease;
+    }
+    .bullet:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+    .bullet-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--gold-glow);
+      margin-bottom: 12px;
+    }
+    .bullet-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+    .bullet-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ── Who ── */
+    .who { max-width: 720px; margin: 0 auto 64px; padding: 0 24px; }
+    .who-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      text-align: center;
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.75) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .who-row { display: flex; flex-direction: column; gap: 10px; }
+    .who-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      transition: all 0.3s ease;
+    }
+    .who-item:hover { border-color: var(--border-hover); }
+    .check {
+      color: var(--gold-glow);
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-weight: 700;
+    }
+
+    /* ── Urgency ── */
+    .urgency { max-width: 720px; margin: 0 auto 48px; padding: 0 24px; }
+    .urgency-box {
+      background:
+        linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(15, 14, 20, 0.6) 100%);
+      border: 1px solid rgba(240, 199, 94, 0.25);
+      border-radius: 14px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .urgency-box .label {
+      font-size: 12px;
+      color: var(--gold-glow);
+      margin-bottom: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .urgency-box strong {
+      font-size: clamp(17px, 2.2vw, 20px);
+      color: var(--text-primary);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: block;
+    }
+    .urgency-box .fine {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 28px 24px 40px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .footer-disclaimer {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 14px auto 0;
+    }
+
+    /* ── Reveal animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .bar .dot { animation: none; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .bullets { grid-template-columns: 1fr; }
+      .event-bar { flex-direction: column; align-items: center; }
+      .event-pill,
+      .event-pill:first-child,
+      .event-pill:last-child {
+        border-radius: 10px !important;
+        margin: 3px 0;
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        border-left: 1px solid var(--border-subtle);
+      }
+      .play-circle { width: 64px; height: 64px; }
+      .play-circle svg { width: 22px; height: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background -->
+  <div class="ambient">
+    <div class="ambient-orb ambient-orb--1"></div>
+    <div class="ambient-orb ambient-orb--2"></div>
+  </div>
+  <div class="grid-bg"></div>
+  <div class="noise"></div>
+
+  <main class="page">
+
+    <div class="bar"><span class="dot"></span>Live training — Monday May 6 @ 6pm CT — Spots are limited</div>
+
+    <nav><div class="logo">Wholesale Elite Network</div></nav>
+
+    <section class="hero">
+      <div class="badge reveal">Free live training</div>
+      <h1 class="reveal reveal-delay-1">Get Your First<br><em>Wholesale Deal</em><br>Or Finally Scale</h1>
+      <p class="sub reveal reveal-delay-2">The exact <strong>marketing, sales, and systems framework</strong> we use to build wholesaling businesses that run — whether you're chasing deal one or stuck at the same number every month.</p>
+
+      <div class="event-bar reveal reveal-delay-3">
+        <div class="event-pill">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M8 2v3M16 2v3M3 8h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z" stroke-width="2" stroke-linecap="round"/></svg>
+          Monday, May 6th
+        </div>
+        <div class="event-pill">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/></svg>
+          6:00pm CT / 7:00pm ET
+        </div>
+        <div class="event-pill">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.89L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" stroke-width="2"/></svg>
+          Live on Zoom — Free
+        </div>
+      </div>
+
+      <div class="video-box reveal">
+        <div class="video-placeholder">
+          <div class="play-stack">
+            <div class="play-circle">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="play-label">Watch the invite</div>
+          </div>
+        </div>
+        <div class="video-caption">Watch this before you register ↑</div>
+      </div>
+    </section>
+
+    <div class="form-wrap reveal">
+      <input type="text" placeholder="First name">
+      <input type="email" placeholder="Email address">
+      <input type="tel" placeholder="Phone number (for reminders)">
+      <button class="cta-btn">Reserve My Free Spot →</button>
+      <p class="privacy">No spam. Reminder texts only. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="divider reveal"><div class="divider-line"></div><div class="divider-text">What you'll learn</div><div class="divider-line"></div></div>
+
+    <div class="bullets">
+      <div class="bullet reveal">
+        <div class="bullet-label">01</div>
+        <div class="bullet-title">The marketing system</div>
+        <div class="bullet-desc">How to generate inbound motivated seller leads without cold calling or driving for dollars.</div>
+      </div>
+      <div class="bullet reveal reveal-delay-1">
+        <div class="bullet-label">02</div>
+        <div class="bullet-title">The sales structure</div>
+        <div class="bullet-desc">How to convert leads into signed contracts — even if you've never closed a deal before.</div>
+      </div>
+      <div class="bullet reveal">
+        <div class="bullet-label">03</div>
+        <div class="bullet-title">The systems to scale</div>
+        <div class="bullet-desc">How advanced wholesalers break plateaus by building a business that runs without them.</div>
+      </div>
+      <div class="bullet reveal reveal-delay-1">
+        <div class="bullet-label">04</div>
+        <div class="bullet-title">The first deal blueprint</div>
+        <div class="bullet-desc">A step-by-step breakdown of exactly what we do to get beginners their first close.</div>
+      </div>
+    </div>
+
+    <div class="who">
+      <div class="who-title reveal">This is for you if...</div>
+      <div class="who-row">
+        <div class="who-item reveal"><span class="check">✓</span>You're a beginner who's been studying wholesaling but can't get your first deal across the finish line.</div>
+        <div class="who-item reveal reveal-delay-1"><span class="check">✓</span>You've closed deals before but you're stuck at the same number every month and don't know why.</div>
+        <div class="who-item reveal reveal-delay-2"><span class="check">✓</span>You're doing everything yourself and want to build real systems so the business doesn't depend on you being on all day.</div>
+        <div class="who-item reveal reveal-delay-3"><span class="check">✓</span>You want to see exactly how a working wholesaling operation is structured — marketing, sales, and systems all together.</div>
+      </div>
+    </div>
+
+    <div class="urgency">
+      <div class="urgency-box reveal">
+        <p class="label">Live training — one night only</p>
+        <strong>Monday May 6 @ 6pm CT — Reserve your spot now</strong>
+        <p class="fine">This will not be sold as a replay. Show up live or miss it.</p>
+      </div>
+    </div>
+
+    <div class="form-wrap reveal" style="margin-bottom:64px">
+      <input type="text" placeholder="First name">
+      <input type="email" placeholder="Email address">
+      <input type="tel" placeholder="Phone number (for reminders)">
+      <button class="cta-btn">Reserve My Free Spot →</button>
+      <p class="privacy">No spam. Reminder texts only. Unsubscribe anytime.</p>
+    </div>
+
+    <footer class="footer">
+      &copy; <script>document.write(new Date().getFullYear())</script> HVU Consulting LLC &nbsp;|&nbsp; contractflips.com/webinar
+      <p class="footer-disclaimer">
+        Any financial numbers referenced here, or on any of our sites or emails, are simply estimates, projections, or past results and should not be considered exact, actual, or as a promise of potential earnings. All numbers are illustrative only. Your results will depend on many factors, including your background, experience, and work ethic. There are no guarantees of success or income.
+      </p>
+    </footer>
+
+  </main>
+
+  <script>
+    (function () {
+      const items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+      items.forEach(el => io.observe(el));
+    })();
+  </script>
+
+</body>
+</html>

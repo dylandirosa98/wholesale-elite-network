@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/webp" href="/favicon.webp">
+  <title>Wholesale Elite Network | The Gateway To Your First Real Estate Deal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold-deep: #B8860B;
+      --gold-main: #D4AF37;
+      --gold-mid: #E5B83B;
+      --gold-light: #F0C75E;
+      --gold-glow: #F5D77E;
+      --bg-primary: #09090F;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(240, 199, 94, 0.3);
+      --text-primary: #F5F5F7;
+      --text-secondary: rgba(245, 245, 247, 0.6);
+      --text-muted: rgba(245, 245, 247, 0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Ambient background ── */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+    }
+
+    .ambient-orb--1 {
+      width: 600px;
+      height: 600px;
+      background: var(--gold-deep);
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.3;
+    }
+
+    .ambient-orb--2 {
+      width: 400px;
+      height: 400px;
+      background: var(--gold-main);
+      bottom: -100px;
+      right: -100px;
+      opacity: 0.15;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 256px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0 20px;
+    }
+
+    /* ── Hero / VSL section ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 800px;
+      width: 100%;
+      padding-top: clamp(40px, 8vh, 80px);
+    }
+
+    .sound-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 100px;
+      background: rgba(240, 199, 94, 0.1);
+      border: 1px solid rgba(240, 199, 94, 0.2);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold-glow);
+      margin-bottom: 24px;
+    }
+
+    .sound-hint svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--gold-light);
+    }
+
+    /* ── Video player ── */
+    .video-wrap {
+      width: 100%;
+      max-width: 740px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: rgba(20, 20, 30, 0.6);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03),
+        0 20px 60px -10px rgba(0, 0, 0, 0.5),
+        0 0 120px -20px rgba(212, 175, 55, 0.15);
+      margin-bottom: 36px;
+    }
+
+
+    /* ── Headline ── */
+    .hero h1 {
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.75) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    /* ── CTA button ── */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-mid));
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.45);
+    }
+
+    .cta-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    .note {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── Testimonials section ── */
+    .testimonials {
+      width: 100%;
+      max-width: 800px;
+      padding: 80px 0 40px;
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 40px;
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.75) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .testimonial-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .video-caption {
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-align: center;
+      letter-spacing: -0.01em;
+    }
+
+    .photos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .photo-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      transition: all 0.3s ease;
+    }
+
+    .photo-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .testimonials-cta {
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      width: 100%;
+      max-width: 800px;
+      padding: 40px 0;
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .footer-top {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .footer-top a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-top a:hover {
+      color: var(--gold-glow);
+    }
+
+    .footer-disclaimer {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 32px;
+      }
+
+      .video-play-btn {
+        width: 60px;
+        height: 60px;
+      }
+
+      .video-play-btn svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .testimonials-grid {
+        gap: 10px;
+      }
+
+      .photos-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .cta-btn {
+        padding: 14px 32px;
+        font-size: 15px;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .footer-disclaimer {
+        font-size: 10px;
+        padding: 0 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background -->
+  <div class="ambient">
+    <div class="ambient-orb ambient-orb--1"></div>
+    <div class="ambient-orb ambient-orb--2"></div>
+  </div>
+  <div class="grid-bg"></div>
+  <div class="noise"></div>
+
+  <!-- Page content -->
+  <main class="page">
+
+    <!-- Hero / VSL section -->
+    <section class="hero">
+      <div class="sound-hint">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        Play The Video To Turn On Sound
+      </div>
+
+      <!-- Wistia VSL -->
+      <div class="video-wrap">
+        <div style="position:relative;aspect-ratio:16/9;">
+          <iframe
+            src="https://fast.wistia.net/embed/iframe/w6loymbvng?videoFoam=true"
+            title="VSL"
+            allow="autoplay; fullscreen"
+            frameborder="0"
+            scrolling="no"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;"
+          ></iframe>
+        </div>
+      </div>
+
+      <h1>Discover How Our New <span class="highlight">'D.F.Y. Wholesaling System'</span> Is Helping Complete Beginners Close 5 Figure Deals Without Spending Thousands On Marketing</h1>
+
+      <p class="sub">If you are ready to get started, apply below.</p>
+
+      <a href="#application-placeholder" target="_blank" class="cta-btn">
+        APPLY NOW
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <p class="note">*Note: this offer is only available for a very limited time.</p>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="apply">
+      <h2>A Few Of Our 5 & 6 Figure Students...</h2>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div style="position:relative;aspect-ratio:16/9;">
+            <iframe src="https://www.youtube.com/embed/2C7Yn8H95JM?si=D3rCHfiJ17lpSO9E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          </div>
+          <div class="video-caption">Janier from 0-52k/ month.</div>
+        </div>
+        <div class="testimonial-card">
+          <div style="position:relative;aspect-ratio:16/9;">
+            <iframe src="https://www.youtube.com/embed/ezD0fLGiTLA?si=WNdUF-Xd21u21IXp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          </div>
+          <div class="video-caption">Chase closed right under $20,000 worth of assignments in the month of January only 3 months into working with us.</div>
+        </div>
+        <div class="testimonial-card">
+          <div style="position:relative;aspect-ratio:16/9;">
+            <iframe src="https://www.youtube.com/embed/ILDPqmyoEb0?si=5BnBEqwjF6CQd1c-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          </div>
+          <div class="video-caption">Leo and Spencer dropped out of college and went on to do $40,000+ months with us in under 6 months.</div>
+        </div>
+      </div>
+
+      <div class="photos-grid">
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+        <div class="photo-card"><img src="https://placehold.co/600x600/0f0f18/D4AF37?text=Student+Result+Placeholder" alt="Student result" loading="lazy"></div>
+      </div>
+
+      <div class="testimonials-cta">
+        <a href="#application-placeholder" target="_blank" class="cta-btn">
+          APPLY NOW
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-top">
+        &copy; <script>document.write(new Date().getFullYear())</script> HVU Consulting LLC &nbsp;|&nbsp; <a href="#">Read Our Policies</a>
+      </div>
+      <p class="footer-disclaimer">
+        Any financial numbers referenced here, or on any of our sites or emails, are simply estimates, projections, or past results and should not be considered exact, actual, or as a promise of potential earnings. All numbers are illustrative only. Your results will depend on many factors, including your background, experience, and work ethic. There are no guarantees of success or income.
+      </p>
+    </footer>
+
+  </main>
+
+</body>
+</html>

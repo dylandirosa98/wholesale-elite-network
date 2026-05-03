@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/webp" href="/favicon.webp">
+  <title>You're Booked — Wholesale Elite Network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold-deep: #B8860B;
+      --gold-main: #D4AF37;
+      --gold-mid: #E5B83B;
+      --gold-light: #F0C75E;
+      --gold-glow: #F5D77E;
+      --bg-primary: #09090F;
+      --bg-card: rgba(255,255,255,0.03);
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-hover: rgba(240, 199, 94,0.3);
+      --text-primary: #F5F5F7;
+      --text-secondary: rgba(245,245,247,0.6);
+      --text-muted: rgba(245,245,247,0.4);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 24px 64px;
+    }
+
+    .congrats {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .congrats h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #fff 0%, var(--gold-glow) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Video ── */
+    .video-wrap {
+      margin: 0 auto 40px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 0 40px rgba(212, 175, 55,0.25);
+    }
+
+    /* ── Steps ── */
+    .steps-label {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold-glow);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    .steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      margin-bottom: 56px;
+    }
+
+    .faq-section h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .faq {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      padding: 18px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-primary);
+      user-select: none;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.2rem;
+      color: var(--gold-glow);
+      transition: transform 0.2s;
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-item[open] {
+      border-color: var(--border-hover);
+    }
+
+    .faq-answer {
+      padding: 0 20px 18px;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .footer-top {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .footer-top a {
+      color: var(--gold-glow);
+      text-decoration: none;
+    }
+
+    .footer-disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <div class="congrats">
+      <h1>Congratulations on booking your Wholesale Real Estate strategy call.</h1>
+    </div>
+
+    <!-- Wistia VSL -->
+    <div class="video-wrap">
+      <div style="position:relative;aspect-ratio:16/9;">
+        <iframe
+          src="https://fast.wistia.net/embed/iframe/2xpu7utjf5?videoFoam=true"
+          title="VSL"
+          allow="autoplay; fullscreen"
+          frameborder="0"
+          scrolling="no"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;"
+        ></iframe>
+      </div>
+    </div>
+
+    <p class="steps-label">Do the following:</p>
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        Confirm the meet sent to your email
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        Respond to any texts / calls made to you by our team
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        Confirm the meet via text
+      </li>
+    </ol>
+
+    <div class="faq-section">
+      <h2>FAQ</h2>
+      <div class="faq">
+
+        <details class="faq-item">
+          <summary>Is wholesaling becoming too saturated?</summary>
+          <p class="faq-answer">No... if anything it is becoming less and less saturated every single day. Regulations do not affect us at all — yet it scares off all of the beginners, leaving us with more deals.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How will I set up my marketing?</summary>
+          <p class="faq-answer">In our program, we set up all of the marketing for you, from automations to the lead generation itself. You just worry about the sales.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What if I have a contract and I have to back out?</summary>
+          <p class="faq-answer">Our processes we teach you will explain exactly how to back out with zero liability.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I do this business under the age of 18?</summary>
+          <p class="faq-answer">Yes, I closed my first deal at 17.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How much money do I need to begin wholesaling?</summary>
+          <p class="faq-answer">It all depends on your goals, and it will be fully gone over during the strategy session.</p>
+        </details>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      &copy; <script>document.write(new Date().getFullYear())</script> HVU Consulting LLC &nbsp;|&nbsp; <a href="#">Read Our Policies</a>
+    </div>
+    <p class="footer-disclaimer">
+      Any financial numbers referenced here, or on any of our sites or emails, are simply estimates, projections, or past results and should not be considered exact, actual, or as a promise of potential earnings. All numbers are illustrative only. Your results will depend on many factors, including your background, experience, and work ethic. There are no guarantees of success or income.
+    </p>
+  </footer>
+
+</body>
+</html>
