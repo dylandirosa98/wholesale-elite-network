@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/webp" href="/favicon.webp">
-  <title>Get The Blueprint - 10+ Deals a Month</title>
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+  <title>Steal The Playbook. $50k In Assignments Every Month</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -42,7 +45,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── Ambient background ── */
+    /* ── Aurora background ── */
     .ambient {
       position: fixed;
       inset: 0;
@@ -51,64 +54,112 @@
       overflow: hidden;
     }
 
-    .ambient-orb {
+    /* Top spotlight */
+    .ambient::before {
+      content: '';
       position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      will-change: transform;
-    }
-
-    .ambient-orb--1 {
-      width: 600px;
-      height: 600px;
-      background: var(--gold-deep);
-      top: -200px;
+      top: -30%;
       left: 50%;
       transform: translateX(-50%);
-      opacity: 0.35;
+      width: 1200px;
+      height: 900px;
+      background: radial-gradient(ellipse at center,
+        rgba(212, 175, 55, 0.28) 0%,
+        rgba(184, 134, 11, 0.12) 30%,
+        transparent 65%);
+      filter: blur(40px);
     }
 
-    .ambient-orb--2 {
-      width: 400px;
-      height: 400px;
-      background: var(--gold-main);
-      bottom: -100px;
-      right: -100px;
-      opacity: 0.18;
+    /* Bottom vignette */
+    .ambient::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 100%,
+        rgba(140, 109, 15, 0.18) 0%,
+        transparent 55%);
     }
 
-    .ambient-orb--3 {
-      width: 300px;
+    .aurora {
+      position: absolute;
+      width: 140%;
+      height: 380px;
+      left: -20%;
+      filter: blur(70px);
+      will-change: transform;
+      mix-blend-mode: screen;
+      opacity: 0.55;
+    }
+
+    .aurora-1 {
+      top: 12%;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(240, 199, 94, 0.0) 10%,
+        rgba(212, 175, 55, 0.55) 45%,
+        rgba(245, 215, 126, 0.35) 70%,
+        transparent 100%);
+      transform: rotate(-8deg);
+      animation: drift-1 18s ease-in-out infinite alternate;
+    }
+
+    .aurora-2 {
+      top: 45%;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(184, 134, 11, 0.45) 30%,
+        rgba(229, 184, 59, 0.4) 60%,
+        transparent 100%);
+      transform: rotate(6deg);
+      animation: drift-2 22s ease-in-out infinite alternate;
+    }
+
+    .aurora-3 {
+      top: 72%;
       height: 300px;
-      background: #8C6D0F;
-      top: 40%;
-      left: -100px;
-      opacity: 0.12;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(140, 109, 15, 0.35) 25%,
+        rgba(212, 175, 55, 0.3) 65%,
+        transparent 100%);
+      transform: rotate(-4deg);
+      animation: drift-3 26s ease-in-out infinite alternate;
     }
 
-    /* ── Noise overlay ── */
+    @keyframes drift-1 {
+      0% { transform: rotate(-8deg) translateX(-3%); }
+      100% { transform: rotate(-6deg) translateX(4%); }
+    }
+    @keyframes drift-2 {
+      0% { transform: rotate(6deg) translateX(2%); }
+      100% { transform: rotate(8deg) translateX(-3%); }
+    }
+    @keyframes drift-3 {
+      0% { transform: rotate(-4deg) translateX(-2%); }
+      100% { transform: rotate(-2deg) translateX(3%); }
+    }
+
+    /* Dot field instead of grid */
+    .dot-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(245, 245, 247, 0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+    }
+
+    /* Noise overlay */
     .noise {
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.025;
+      opacity: 0.03;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
       background-size: 256px;
-    }
-
-    /* ── Grid background ── */
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
     }
 
     /* ── Main layout ── */
@@ -122,6 +173,19 @@
       padding: 0 20px;
     }
 
+    .site-brand {
+      margin-top: 28px;
+      margin-bottom: 8px;
+    }
+    .site-brand img {
+      height: 120px;
+      width: auto;
+      display: block;
+    }
+    @media (max-width: 640px) {
+      .site-brand img { height: 96px; }
+    }
+
     /* ── Hero ── */
     .hero {
       display: flex;
@@ -133,40 +197,12 @@
     }
 
     /* Initially hidden — GSAP will reveal */
-    .badge, .hero h1, .hero .sub, .hero .tags, .mockup-wrapper, .click-hint, .footer {
+    .hero h1, .hero .sub, .hero .tags, .mockup-wrapper, .click-hint, .footer {
       opacity: 0;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border-radius: 100px;
-      background: rgba(240, 199, 94, 0.1);
-      border: 1px solid rgba(240, 199, 94, 0.2);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--gold-glow);
-      margin-bottom: 28px;
-      letter-spacing: 0.01em;
-    }
-
-    .badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold-light);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.4); }
-    }
-
     .hero h1 {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: clamp(32px, 5.5vw, 56px);
       font-weight: 800;
       line-height: 1.1;
@@ -411,13 +447,15 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 16px;
+      padding: 24px 16px;
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
       transition: opacity 0.35s ease, visibility 0.35s ease;
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
     .modal-overlay.active {
@@ -430,7 +468,8 @@
       width: 100%;
       max-width: 420px;
       position: relative;
-      transform: translateY(24px) scale(0.95);
+      margin: auto 0;
+      transform: translateY(24px) scale(0.97);
       transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -440,13 +479,13 @@
 
     .modal-close {
       position: absolute;
-      top: -40px;
-      right: 0;
-      width: 32px;
-      height: 32px;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
       border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
       color: #fff;
       font-size: 18px;
       cursor: pointer;
@@ -461,28 +500,106 @@
       background: rgba(255,255,255,0.12);
     }
 
-    .modal-iframe-wrap {
-      width: 100%;
-      border-radius: 0;
-      overflow: hidden;
-      background: transparent;
-      box-shadow: none;
+    .form-card {
+      background: #0E0E16;
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 22px 20px 20px;
+      box-shadow:
+        0 30px 80px -10px rgba(0,0,0,0.7),
+        0 0 120px -30px rgba(212,175,55,0.3);
     }
-
-    .modal-iframe-wrap iframe {
-      width: 100%;
-      border: none;
-      display: block;
-      height: 620px;
-      overflow: hidden;
-      background: #09090F;
+    .form-header { padding-right: 36px; }
+    .form-header h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-
-    @media (max-height: 700px), (max-width: 480px) {
-      .modal-iframe-wrap iframe {
-        height: calc(100dvh - 100px);
-        max-height: 620px;
-      }
+    .form-header p {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .lead-form { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; min-width: 0; }
+    .field { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .field span {
+      font-size: 10.5px; font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .field input {
+      width: 100%;
+      min-width: 0;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--text-primary);
+      font-family: inherit; font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--gold-main);
+      background: rgba(255,255,255,0.05);
+    }
+    .field input:invalid:not(:placeholder-shown) {
+      border-color: rgba(255,95,86,0.5);
+    }
+    .checkbox {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 10.5px; color: var(--text-muted);
+      line-height: 1.4; cursor: pointer; margin-top: 2px;
+    }
+    .form-submit { padding: 12px 20px; }
+    .checkbox input[type=checkbox] {
+      appearance: none; -webkit-appearance: none;
+      width: 16px; height: 16px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.03);
+      cursor: pointer; flex-shrink: 0; margin-top: 1px;
+      position: relative; transition: all 0.2s;
+    }
+    .checkbox input[type=checkbox]:checked {
+      background: var(--gold-main);
+      border-color: var(--gold-main);
+    }
+    .checkbox input[type=checkbox]:checked::after {
+      content: '✓'; position: absolute;
+      top: -3px; left: 2px;
+      color: #1a1408; font-size: 13px; font-weight: 800;
+    }
+    .form-submit {
+      margin-top: 8px;
+      padding: 14px 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700; font-size: 14px;
+      color: #1a1408;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-main));
+      border: none; border-radius: 100px;
+      cursor: pointer;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.12) inset,
+        0 8px 24px -6px rgba(212,175,55,0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .form-submit:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.2) inset,
+        0 12px 30px -6px rgba(212,175,55,0.6);
+    }
+    .form-submit:disabled {
+      opacity: 0.6; cursor: not-allowed; transform: none;
     }
 
     /* ── Footer ── */
@@ -522,123 +639,58 @@
 
     /* ── Responsive ── */
     @media (max-width: 640px) {
-      .hero {
-        padding-top: 48px;
-      }
-
-      .hero h1 {
-        font-size: 28px;
-        padding: 0 4px;
-      }
-
-      .hero .sub {
-        font-size: 15px;
-        padding: 0 8px;
-      }
-
-      .hero .tags {
-        gap: 6px;
-        margin-bottom: 10px;
-      }
-
-      .hero .tag {
-        font-size: 12px;
-        padding: 5px 12px;
-      }
-
-      .badge {
-        font-size: 12px;
-        padding: 5px 14px;
-      }
-
-      .mockup-wrapper {
-        margin-bottom: 40px;
-      }
-
-      .browser {
-        border-radius: 12px;
-      }
-
-      .browser-bar {
-        padding: 10px 14px;
-      }
-
-      .browser-dot {
-        width: 8px;
-        height: 8px;
-      }
-
-      .browser-url {
-        font-size: 11px;
-        padding: 5px 10px;
-      }
-
-      .play-btn {
-        width: 60px;
-        height: 60px;
-      }
-
-      .play-btn svg {
-        width: 22px;
-        height: 22px;
-      }
-
-      .footer-disclaimer {
-        font-size: 10px;
-        padding: 0 8px;
-      }
+      .hero { padding-top: 48px; }
+      .hero h1 { font-size: 28px; padding: 0 4px; }
+      .hero .sub { font-size: 15px; padding: 0 8px; }
+      .hero .tags { gap: 6px; margin-bottom: 10px; }
+      .hero .tag { font-size: 12px; padding: 5px 12px; }
+      .mockup-wrapper { margin-bottom: 40px; }
+      .browser { border-radius: 12px; }
+      .browser-bar { padding: 10px 14px; }
+      .browser-dot { width: 8px; height: 8px; }
+      .browser-url { font-size: 11px; padding: 5px 10px; }
+      .play-btn { width: 60px; height: 60px; }
+      .play-btn svg { width: 22px; height: 22px; }
+      .footer-disclaimer { font-size: 10px; padding: 0 8px; }
     }
 
     @media (max-width: 380px) {
-      .hero h1 {
-        font-size: 24px;
-      }
-
-      .hero .sub {
-        font-size: 14px;
-      }
-
-      .play-btn {
-        width: 52px;
-        height: 52px;
-      }
-
-      .play-btn svg {
-        width: 18px;
-        height: 18px;
-      }
+      .hero h1 { font-size: 24px; }
+      .hero .sub { font-size: 14px; }
+      .play-btn { width: 52px; height: 52px; }
+      .play-btn svg { width: 18px; height: 18px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Ambient background -->
+  <!-- Aurora background -->
   <div class="ambient">
-    <div class="ambient-orb ambient-orb--1"></div>
-    <div class="ambient-orb ambient-orb--2"></div>
-    <div class="ambient-orb ambient-orb--3"></div>
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
   </div>
-  <div class="grid-bg"></div>
+  <div class="dot-field"></div>
   <div class="noise"></div>
 
   <!-- Page content -->
   <main class="page">
 
+    <a href="/" class="site-brand"><img src="/images/logo-256.png?v=4" alt="Wholesale Elite Network"></a>
+
     <!-- Hero -->
     <section class="hero">
-      <div class="badge">Free Access — Limited Time</div>
-
-      <h1 id="heroHeading">The exact resources and blueprint that took me to <span class="highlight">10+ deals a month.</span></h1>
+      <h1 id="heroHeading">The same playbook and toolkit I used to lock in <span class="highlight">$50k in assignments every month.</span></h1>
 
       <p class="sub">
-        Usually <span class="price"><strong>$197/mo</strong></span> — we're giving it away <span class="free">completely free.</span>
+        Normally <span class="price"><strong>$97/mo</strong></span>. Yours today at <span class="free">zero cost.</span>
       </p>
 
       <div class="tags">
-        <span class="tag">Contracts</span>
-        <span class="tag">Scripts</span>
-        <span class="tag">Calculators</span>
-        <span class="tag">& More</span>
+        <span class="tag">Agreements</span>
+        <span class="tag">Pitches</span>
+        <span class="tag">Numbers</span>
+        <span class="tag">+ More</span>
       </div>
     </section>
 
@@ -649,7 +701,7 @@
           <div class="browser-dot"></div>
           <div class="browser-dot"></div>
           <div class="browser-dot"></div>
-          <div class="browser-url">contractflips.com</div>
+          <div class="browser-url">wholesalingelitenetwork.com</div>
         </div>
         <div class="browser-content">
           <img src="https://placehold.co/1280x720/0f0f18/D4AF37?text=Video+Preview+Placeholder" alt="Video preview" loading="eager">
@@ -660,14 +712,14 @@
       </div>
       <div class="click-hint">
         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        Click the video above to get instant access
+        Tap the video above for instant access
       </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-top">
-        &copy; <script>document.write(new Date().getFullYear())</script> HVU Consulting LLC &nbsp;|&nbsp; <a href="#">Read Our Policies</a>
+        &copy; <script>document.write(new Date().getFullYear())</script> Wholesaling Elite LLC &nbsp;|&nbsp; <a href="#">Read Our Policies</a>
       </div>
       <p class="footer-disclaimer">
         Any financial numbers referenced here, or on any of our sites or emails, are simply estimates, projections, or past results and should not be considered exact, actual, or as a promise of potential earnings. All numbers are illustrative only. Your results will depend on many factors, including your background, experience, and work ethic. There are no guarantees of success or income.
@@ -676,17 +728,45 @@
 
   </main>
 
-  <!-- Modal with GHL form iframe -->
+  <!-- Modal lead form -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
       <button class="modal-close" id="modalClose">&times;</button>
-      <div class="modal-iframe-wrap">
-        <iframe
-          id="crmFormIframe"
-          src="#form-placeholder"
-          title="Funnel Form CF - Dylan TikTok"
-          scrolling="no"
-        ></iframe>
+      <div class="form-card">
+        <div class="form-header">
+          <h2>Get Instant Access</h2>
+          <p>Drop your info. The toolkit unlocks the moment you submit.</p>
+        </div>
+        <form id="leadForm" class="lead-form" data-redirect="/thereinetwork" novalidate>
+          <input type="hidden" name="influencer" value="Zach">
+          <input type="hidden" name="source" value="TikTok">
+
+          <div class="form-row">
+            <label class="field">
+              <span>First Name</span>
+              <input name="firstName" type="text" autocomplete="given-name" placeholder=" " required>
+            </label>
+            <label class="field">
+              <span>Last Name</span>
+              <input name="lastName" type="text" autocomplete="family-name" placeholder=" " required>
+            </label>
+          </div>
+          <label class="field">
+            <span>Phone</span>
+            <input name="phone" type="tel" autocomplete="tel" placeholder=" " required>
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" placeholder=" " required>
+          </label>
+
+          <label class="checkbox">
+            <input type="checkbox" name="consent" required>
+            <span>I agree to receive SMS and email messages from Wholesaling Elite LLC. Reply STOP to opt out of texts, HELP for help. Msg &amp; data rates may apply. Unsubscribe from emails anytime.</span>
+          </label>
+
+          <button type="submit" class="form-submit">Get Instant Access →</button>
+        </form>
       </div>
     </div>
   </div>
@@ -696,88 +776,36 @@
   <script src="https://unpkg.com/split-type"></script>
 
   <script>
-    // ── GSAP entrance animations ──
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-    // Split the heading into words for staggered reveal
     const split = new SplitType('#heroHeading', { types: 'words' });
 
-    // Ambient orbs gentle float
-    gsap.to('.ambient-orb--1', {
-      y: 30, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut'
-    });
-    gsap.to('.ambient-orb--2', {
-      y: -40, x: -20, duration: 8, repeat: -1, yoyo: true, ease: 'sine.inOut'
-    });
-    gsap.to('.ambient-orb--3', {
-      y: 20, x: 15, duration: 10, repeat: -1, yoyo: true, ease: 'sine.inOut'
-    });
-
-    // Main entrance sequence
-    tl.to('.badge', {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      delay: 0.2
-    })
-    .fromTo('.badge', { y: 16 }, { y: 0, duration: 0.6 }, '<')
-
-    // Heading words stagger in
-    .set('#heroHeading', { opacity: 1 })
+    tl.set('#heroHeading', { opacity: 1 })
     .from(split.words, {
       opacity: 0,
       y: 24,
       rotateX: 40,
       duration: 0.7,
       stagger: 0.04,
-      ease: 'power3.out'
-    }, '-=0.2')
-
-    // Subheadline
-    .to('.hero .sub', {
-      opacity: 1,
-      duration: 0.5
-    }, '-=0.3')
+      ease: 'power3.out',
+      delay: 0.15
+    })
+    .to('.hero .sub', { opacity: 1, duration: 0.5 }, '-=0.3')
     .fromTo('.hero .sub', { y: 12 }, { y: 0, duration: 0.5 }, '<')
-
-    // Tags stagger
     .to('.hero .tags', { opacity: 1, duration: 0.01 }, '-=0.1')
     .from('.hero .tag', {
-      opacity: 0,
-      y: 12,
-      scale: 0.9,
-      duration: 0.4,
-      stagger: 0.08,
-      ease: 'back.out(2)'
+      opacity: 0, y: 12, scale: 0.9,
+      duration: 0.4, stagger: 0.08, ease: 'back.out(2)'
     }, '-=0.1')
-
-    // Browser mockup rises up
-    .to('.mockup-wrapper', {
-      opacity: 1,
-      duration: 0.8
-    }, '-=0.2')
+    .to('.mockup-wrapper', { opacity: 1, duration: 0.8 }, '-=0.2')
     .fromTo('.mockup-wrapper', { y: 40 }, { y: 0, duration: 0.8, ease: 'power3.out' }, '<')
+    .to('.click-hint', { opacity: 1, duration: 0.5 }, '-=0.3')
+    .to('.footer', { opacity: 1, duration: 0.6 }, '-=0.2');
 
-    // Click hint fades in
-    .to('.click-hint', {
-      opacity: 1,
-      duration: 0.5
-    }, '-=0.3')
-
-    // Footer
-    .to('.footer', {
-      opacity: 1,
-      duration: 0.6
-    }, '-=0.2');
-
-    // ── Mouse parallax on the browser mockup (desktop only) ──
     if (window.matchMedia('(min-width: 768px)').matches) {
       const mockup = document.querySelector('.mockup-wrapper');
-
       document.addEventListener('mousemove', (e) => {
         const xPercent = (e.clientX / window.innerWidth - 0.5) * 2;
         const yPercent = (e.clientY / window.innerHeight - 0.5) * 2;
-
         gsap.to(mockup, {
           rotateY: xPercent * 2,
           rotateX: -yPercent * 1.5,
@@ -786,18 +814,9 @@
           transformPerspective: 1200,
           transformOrigin: 'center center'
         });
-
-        // Subtle orb movement
-        gsap.to('.ambient-orb--1', {
-          x: xPercent * 15 + '%',
-          duration: 1.5,
-          ease: 'power1.out',
-          overwrite: 'auto'
-        });
       });
     }
 
-    // ── Modal with GHL form ──
     const overlay = document.getElementById('modalOverlay');
     const closeBtn = document.getElementById('modalClose');
 
@@ -808,7 +827,6 @@
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-
     function closeModal() {
       overlay.style.opacity = '0';
       overlay.style.visibility = 'hidden';
@@ -817,21 +835,34 @@
       document.body.style.overflow = '';
     }
 
-    // Open on play button / browser mockup click
     document.addEventListener('click', (e) => {
       if (e.target.closest('#videoTrigger')) openModal();
     });
-
     closeBtn.addEventListener('click', closeModal);
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
+    const leadForm = document.getElementById('leadForm');
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!leadForm.checkValidity()) { leadForm.reportValidity(); return; }
+      const submitBtn = leadForm.querySelector('.form-submit');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Unlocking...';
+      const fd = new FormData(leadForm);
+      const data = Object.fromEntries(fd.entries());
+      data.consent = leadForm.querySelector('[name="consent"]')?.checked ? 'yes' : '';
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+          keepalive: true,
+        });
+      } catch (err) { /* still redirect on email failure */ }
+      window.location.href = leadForm.dataset.redirect || '/';
+    });
   </script>
-
 
 </body>
 </html>

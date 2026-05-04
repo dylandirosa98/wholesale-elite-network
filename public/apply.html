@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+  <title>Apply : Wholesale Elite Network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --gold-deep:#B8860B;
+      --gold-main:#D4AF37;
+      --gold-mid:#E5B83B;
+      --gold-light:#F0C75E;
+      --gold-glow:#F5D77E;
+      --bg:#09090F;
+      --bg-2:#0E0E16;
+      --card:rgba(255,255,255,0.05);
+      --border:rgba(255,255,255,0.12);
+      --border-gold:rgba(240,199,94,0.4);
+      --text:#FFFFFF;
+      --text-2:rgba(245,245,247,0.85);
+      --text-3:rgba(245,245,247,0.62);
+    }
+
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+      background:var(--bg); color:var(--text);
+      min-height:100vh;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* Aurora background */
+    .ambient { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+    .ambient::before {
+      content:''; position:absolute; top:-30%; left:50%; transform:translateX(-50%);
+      width:1200px; height:900px;
+      background:radial-gradient(ellipse at center,
+        rgba(212,175,55,0.28) 0%,
+        rgba(184,134,11,0.12) 30%,
+        transparent 65%);
+      filter:blur(40px);
+    }
+    .ambient::after {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse at 50% 100%,
+        rgba(140,109,15,0.18) 0%, transparent 55%);
+    }
+    .aurora {
+      position:absolute; width:140%; height:380px; left:-20%;
+      filter:blur(70px); mix-blend-mode:screen; opacity:0.32;
+    }
+    .aurora-1 { top:12%; background:linear-gradient(90deg,transparent,rgba(212,175,55,0.55) 45%,rgba(245,215,126,0.35) 70%,transparent); transform:rotate(-8deg); animation:drift1 18s ease-in-out infinite alternate; }
+    .aurora-2 { top:45%; background:linear-gradient(90deg,transparent,rgba(184,134,11,0.45) 30%,rgba(229,184,59,0.4) 60%,transparent); transform:rotate(6deg); animation:drift2 22s ease-in-out infinite alternate; }
+    .aurora-3 { top:72%; height:300px; background:linear-gradient(90deg,transparent,rgba(140,109,15,0.35) 25%,rgba(212,175,55,0.3) 65%,transparent); transform:rotate(-4deg); animation:drift3 26s ease-in-out infinite alternate; }
+    @keyframes drift1 { 0%{transform:rotate(-8deg) translateX(-3%);} 100%{transform:rotate(-6deg) translateX(4%);} }
+    @keyframes drift2 { 0%{transform:rotate(6deg) translateX(2%);} 100%{transform:rotate(8deg) translateX(-3%);} }
+    @keyframes drift3 { 0%{transform:rotate(-4deg) translateX(-2%);} 100%{transform:rotate(-2deg) translateX(3%);} }
+    .dot-field {
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:radial-gradient(rgba(245,245,247,0.07) 1px, transparent 1px);
+      background-size:28px 28px;
+      mask-image:radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+      -webkit-mask-image:radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+    }
+    .noise {
+      position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.03;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:256px;
+    }
+
+    /* Layout */
+    .page { position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column; }
+    .topbar {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:22px 28px; max-width:1200px; width:100%; margin:0 auto;
+    }
+    .brand {
+      display:flex; align-items:center;
+    }
+    .brand img {
+      height:54px; width:auto; display:block;
+    }
+
+    .progress-wrap {
+      max-width:760px; width:100%; margin:0 auto; padding:0 24px;
+    }
+    .progress-bar {
+      height:4px; background:rgba(255,255,255,0.06);
+      border-radius:100px; overflow:hidden;
+    }
+    .progress-fill {
+      height:100%;
+      background:linear-gradient(90deg, var(--gold-main), var(--gold-glow));
+      border-radius:100px;
+      transition:width 0.5s cubic-bezier(0.16,1,0.3,1);
+      width:0%;
+    }
+    .progress-meta {
+      display:flex; justify-content:space-between;
+      margin-top:10px;
+      font-size:12px; color:var(--text-2);
+      letter-spacing:0.06em; text-transform:uppercase;
+      font-weight:600;
+    }
+
+    .form-shell {
+      flex:1; display:flex; align-items:center; justify-content:center;
+      padding:30px 24px 60px;
+    }
+    .step-stage {
+      width:100%; max-width:640px;
+      position:relative;
+    }
+    .step {
+      display:none;
+      flex-direction:column; gap:18px;
+      animation:none;
+    }
+    .step.active {
+      display:flex;
+      animation:slideIn 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes slideIn {
+      from { opacity:0; transform:translateY(16px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
+    .step-eyebrow {
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:12px; font-weight:700;
+      color:var(--gold-light);
+      letter-spacing:0.18em; text-transform:uppercase;
+    }
+    .step-title {
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:clamp(24px,3.5vw,34px);
+      font-weight:800; letter-spacing:-0.025em;
+      line-height:1.18;
+      color:#FFFFFF;
+    }
+    .step-help {
+      font-size:14.5px; color:var(--text-2); line-height:1.6;
+    }
+    .step-help strong { color:#FFFFFF; }
+
+    .field { display:flex; flex-direction:column; gap:6px; min-width:0; }
+    .field label {
+      font-size:11.5px; font-weight:700; text-transform:uppercase;
+      letter-spacing:0.08em; color:var(--text-2);
+    }
+    .field input, .field textarea {
+      width:100%; min-width:0;
+      background:rgba(255,255,255,0.03);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px 16px;
+      color:var(--text); font-family:inherit; font-size:15px;
+      transition:border-color 0.2s, background 0.2s;
+    }
+    .field textarea {
+      min-height:110px; resize:vertical;
+    }
+    .field input:focus, .field textarea:focus {
+      outline:none;
+      border-color:var(--gold-main);
+      background:rgba(255,255,255,0.05);
+    }
+    .field-row {
+      display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    }
+    @media (max-width:520px) {
+      .field-row { grid-template-columns:1fr; }
+    }
+
+    /* Scale 1-5 */
+    .scale {
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+    }
+    .scale-opt {
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      padding:18px 8px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      cursor:pointer;
+      transition:all 0.25s ease;
+      text-align:center;
+    }
+    .scale-opt:hover {
+      border-color:var(--border-gold);
+      background:rgba(240,199,94,0.05);
+    }
+    .scale-opt input { display:none; }
+    .scale-opt .num {
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:22px; font-weight:800;
+      color:var(--text);
+    }
+    .scale-opt .lbl {
+      font-size:10.5px; color:var(--text-2);
+      letter-spacing:0.04em; text-transform:uppercase;
+      font-weight:600;
+    }
+    .scale-opt input:checked ~ .num,
+    .scale-opt:has(input:checked) .num {
+      background:linear-gradient(135deg, var(--gold-light), var(--gold-glow));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .scale-opt:has(input:checked) {
+      border-color:var(--gold-main);
+      background:rgba(240,199,94,0.1);
+      box-shadow:0 0 0 1px var(--gold-main) inset;
+    }
+    .scale-legend {
+      display:flex; justify-content:space-between;
+      font-size:12px; color:var(--text-3); margin-top:4px;
+    }
+
+    /* Choice cards (A-D) */
+    .choices { display:flex; flex-direction:column; gap:10px; }
+    .choice {
+      display:flex; align-items:center; gap:14px;
+      padding:16px 18px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      cursor:pointer;
+      transition:all 0.25s ease;
+    }
+    .choice:hover {
+      border-color:var(--border-gold);
+      background:rgba(240,199,94,0.05);
+    }
+    .choice input { display:none; }
+    .choice .key {
+      width:34px; height:34px; flex-shrink:0;
+      border-radius:8px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-weight:700; font-size:14px;
+      color:var(--text-2);
+      transition:all 0.25s;
+    }
+    .choice .text {
+      font-size:14.5px; color:#FFFFFF; line-height:1.4; font-weight:500;
+    }
+    .choice:has(input:checked) {
+      border-color:var(--gold-main);
+      background:rgba(240,199,94,0.1);
+      box-shadow:0 0 0 1px var(--gold-main) inset;
+    }
+    .choice:has(input:checked) .key {
+      background:linear-gradient(135deg, var(--gold-light), var(--gold-main));
+      color:#1a1408; border-color:transparent;
+    }
+
+    /* Booking step */
+    .booking-note {
+      padding:18px 20px;
+      background:rgba(240,199,94,0.08);
+      border:1px solid var(--border-gold);
+      border-radius:14px;
+      font-size:14px; color:#FFFFFF; line-height:1.6;
+    }
+    .booking-note strong { color:var(--gold-light); }
+    .booking-embed {
+      position:relative;
+      min-height:520px;
+      border-radius:14px;
+      border:1px dashed var(--border);
+      background:var(--card);
+      display:flex; align-items:center; justify-content:center;
+      text-align:center;
+      padding:30px;
+    }
+    .booking-embed .placeholder {
+      color:var(--text-3); font-size:14px; line-height:1.55;
+    }
+    .booking-embed .placeholder strong {
+      display:block; color:var(--gold-glow); font-size:15px;
+      font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:6px;
+    }
+
+    /* Nav */
+    .nav-row {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-top:8px;
+    }
+    .btn-back, .btn-next {
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-weight:700; font-size:14px;
+      padding:14px 26px;
+      border-radius:100px;
+      cursor:pointer;
+      border:none;
+      transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .btn-back {
+      background:transparent;
+      color:var(--text-2);
+      border:1px solid var(--border);
+    }
+    .btn-back:hover {
+      color:var(--text); border-color:var(--border-gold);
+    }
+    .btn-back:disabled { opacity:0.3; cursor:not-allowed; }
+    .btn-next {
+      color:#1a1408;
+      background:linear-gradient(135deg, var(--gold-light), var(--gold-main));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.12) inset,
+        0 8px 24px -6px rgba(212,175,55,0.5);
+    }
+    .btn-next:hover {
+      transform:translateY(-1px);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.2) inset,
+        0 12px 30px -6px rgba(212,175,55,0.6);
+    }
+    .btn-next:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+    .footer {
+      padding:30px 24px;
+      text-align:center;
+      font-size:11px;
+      color:var(--text-3);
+      max-width:680px; margin:0 auto;
+      line-height:1.7;
+    }
+    .footer a { color:var(--text-2); text-decoration:none; }
+    .footer a:hover { color:var(--gold-glow); }
+  </style>
+</head>
+<body>
+
+  <div class="ambient">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+  </div>
+  <div class="dot-field"></div>
+  <div class="noise"></div>
+
+  <main class="page">
+
+    <header class="topbar">
+      <div class="brand"><img src="/images/logo-256.png?v=4" alt="Wholesale Elite Network"></div>
+    </header>
+
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-meta">
+        <span id="stepLabel">Step 1 of 6</span>
+        <span>Application</span>
+      </div>
+    </div>
+
+    <div class="form-shell">
+      <form id="applicationForm" class="step-stage" novalidate>
+        <input type="hidden" name="influencer" id="hidInfluencer" value="">
+        <input type="hidden" name="source" id="hidSource" value="">
+
+        <!-- Step 1: Contact info -->
+        <section class="step active" data-step="1">
+          <div class="step-eyebrow">Step 1. Contact</div>
+          <h2 class="step-title">Let's start with your contact info.</h2>
+          <p class="step-help">We'll use this to confirm your meet and send your toolkit.</p>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="firstName">First Name</label>
+              <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="lastName">Last Name</label>
+              <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+        </section>
+
+        <!-- Step 2: Age -->
+        <section class="step" data-step="2">
+          <div class="step-eyebrow">Step 2. About You</div>
+          <h2 class="step-title">How old are you?</h2>
+          <div class="field">
+            <label for="age">Your Age</label>
+            <input id="age" name="age" type="number" min="14" max="99" inputmode="numeric" required>
+          </div>
+        </section>
+
+        <!-- Step 3: Familiarity -->
+        <section class="step" data-step="3">
+          <div class="step-eyebrow">Step 3. Experience</div>
+          <h2 class="step-title">How familiar are you with wholesaling on a scale of 1 to 5?</h2>
+          <p class="step-help"><strong>1</strong> = you've never made a call. <strong>5</strong> = you've closed multiple deals.</p>
+          <div class="scale">
+            <label class="scale-opt"><input type="radio" name="experience" value="1" required><div class="num">1</div><div class="lbl">New</div></label>
+            <label class="scale-opt"><input type="radio" name="experience" value="2"><div class="num">2</div><div class="lbl">Learning</div></label>
+            <label class="scale-opt"><input type="radio" name="experience" value="3"><div class="num">3</div><div class="lbl">Practicing</div></label>
+            <label class="scale-opt"><input type="radio" name="experience" value="4"><div class="num">4</div><div class="lbl">Closed One</div></label>
+            <label class="scale-opt"><input type="radio" name="experience" value="5"><div class="num">5</div><div class="lbl">Closed Many</div></label>
+          </div>
+          <div class="scale-legend">
+            <span>Never made a call</span>
+            <span>Multiple deals closed</span>
+          </div>
+        </section>
+
+        <!-- Step 4: Income / occupation -->
+        <section class="step" data-step="4">
+          <div class="step-eyebrow">Step 4. Where You Are Now</div>
+          <h2 class="step-title">What is your current monthly income, and what are you doing for work?</h2>
+          <div class="field">
+            <label for="income">Monthly Income</label>
+            <input id="income" name="income" type="text" placeholder="e.g. $4,500/mo" required>
+          </div>
+          <div class="field">
+            <label for="occupation">What do you do for work?</label>
+            <textarea id="occupation" name="occupation" placeholder="Tell us briefly..." required></textarea>
+          </div>
+        </section>
+
+        <!-- Step 5: Investment -->
+        <section class="step" data-step="5">
+          <div class="step-eyebrow">Step 5. Resources</div>
+          <h2 class="step-title">How much do you currently have to invest into yourself?</h2>
+          <div class="choices">
+            <label class="choice">
+              <input type="radio" name="investment" value="A" required>
+              <span class="key">A</span>
+              <span class="text">I have multiple 4 figures to invest</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="investment" value="B">
+              <span class="key">B</span>
+              <span class="text">I have multiple 4 figures to invest, but may need it split up</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="investment" value="C">
+              <span class="key">C</span>
+              <span class="text">I only have $1 to $2k to invest</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="investment" value="D">
+              <span class="key">D</span>
+              <span class="text">I have less than $1k to invest</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Step 6: Booking -->
+        <section class="step" data-step="6">
+          <div class="step-eyebrow">Step 6. Book Your Call</div>
+          <h2 class="step-title">Please book in your meet.</h2>
+          <div class="booking-note">
+            <strong>Heads up:</strong> You will receive a call from one of our team members after booking to confirm details and availability. Failure to respond or show to your meet will result in being blacklisted from our services.
+          </div>
+          <div class="booking-embed" id="bookingEmbed">
+            <div class="placeholder">
+              <strong>Booking calendar will load here</strong>
+              Drop the embed link in <code>#bookingEmbed</code> when ready.
+            </div>
+          </div>
+        </section>
+
+        <div class="nav-row">
+          <button type="button" class="btn-back" id="btnBack">← Back</button>
+          <button type="button" class="btn-next" id="btnNext">Continue →</button>
+        </div>
+      </form>
+    </div>
+
+    <footer class="footer">
+      &copy; <script>document.write(new Date().getFullYear())</script> Wholesaling Elite LLC &nbsp;|&nbsp; <a href="#">Read Our Policies</a>
+    </footer>
+
+  </main>
+
+  <script>
+    // Capture source from URL params
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('hidInfluencer').value = params.get('influencer') || '';
+    document.getElementById('hidSource').value = params.get('source') || '';
+
+    const form = document.getElementById('applicationForm');
+    const steps = Array.from(form.querySelectorAll('.step'));
+    const total = steps.length;
+    const fill = document.getElementById('progressFill');
+    const stepLabel = document.getElementById('stepLabel');
+    const btnBack = document.getElementById('btnBack');
+    const btnNext = document.getElementById('btnNext');
+    let current = 0;
+
+    function update() {
+      steps.forEach((s, i) => s.classList.toggle('active', i === current));
+      fill.style.width = (((current + 1) / total) * 100) + '%';
+      stepLabel.textContent = `Step ${current + 1} of ${total}`;
+      btnBack.disabled = current === 0;
+      btnNext.textContent = current === total - 1 ? 'Submit' : 'Continue →';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(idx) {
+      const step = steps[idx];
+      const required = step.querySelectorAll('[required]');
+      for (const el of required) {
+        if (el.type === 'radio') {
+          const group = step.querySelectorAll(`[name="${el.name}"]`);
+          if (!Array.from(group).some(r => r.checked)) {
+            alert('Please choose an option to continue.');
+            return false;
+          }
+        } else if (!el.value.trim()) {
+          el.focus();
+          el.reportValidity?.();
+          return false;
+        } else if (!el.checkValidity()) {
+          el.reportValidity();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    btnNext.addEventListener('click', async () => {
+      if (!validateStep(current)) return;
+      if (current === total - 1) {
+        btnNext.disabled = true;
+        btnNext.textContent = 'Submitting...';
+        const data = Object.fromEntries(new FormData(form).entries());
+        try {
+          await fetch('/api/application', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            keepalive: true,
+          });
+        } catch (err) { /* still redirect on email failure */ }
+        const influencer = (data.influencer || '').toLowerCase();
+        window.location.href = influencer === 'zach' ? '/thank-you' : '/thank-you1';
+        return;
+      }
+      current = Math.min(current + 1, total - 1);
+      update();
+    });
+
+    btnBack.addEventListener('click', () => {
+      current = Math.max(current - 1, 0);
+      update();
+    });
+
+    // Allow Enter to advance on text steps
+    form.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        btnNext.click();
+      }
+    });
+
+    update();
+  </script>
+</body>
+</html>

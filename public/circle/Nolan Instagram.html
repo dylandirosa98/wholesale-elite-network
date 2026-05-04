@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/webp" href="/favicon.webp">
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
   <title>Wholesale Elite Network | The Gateway To Your First Real Estate Deal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -49,43 +52,65 @@
       pointer-events: none;
       overflow: hidden;
     }
-
-    .ambient-orb {
+    .ambient::before {
+      content: '';
       position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-    }
-
-    .ambient-orb--1 {
-      width: 600px;
-      height: 600px;
-      background: var(--gold-deep);
-      top: -200px;
-      left: 50%;
+      top: -30%; left: 50%;
       transform: translateX(-50%);
-      opacity: 0.3;
+      width: 1200px; height: 900px;
+      background: radial-gradient(ellipse at center,
+        rgba(212, 175, 55, 0.28) 0%,
+        rgba(184, 134, 11, 0.12) 30%,
+        transparent 65%);
+      filter: blur(40px);
     }
-
-    .ambient-orb--2 {
-      width: 400px;
-      height: 400px;
-      background: var(--gold-main);
-      bottom: -100px;
-      right: -100px;
-      opacity: 0.15;
+    .ambient::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 100%,
+        rgba(140, 109, 15, 0.18) 0%,
+        transparent 55%);
     }
+    .aurora {
+      position: absolute;
+      width: 140%; height: 380px;
+      left: -20%;
+      filter: blur(70px);
+      mix-blend-mode: screen;
+      opacity: 0.55;
+      will-change: transform;
+    }
+    .aurora-1 {
+      top: 12%;
+      background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.55) 45%, rgba(245,215,126,0.35) 70%, transparent 100%);
+      transform: rotate(-8deg);
+      animation: drift-1 18s ease-in-out infinite alternate;
+    }
+    .aurora-2 {
+      top: 45%;
+      background: linear-gradient(90deg, transparent 0%, rgba(184,134,11,0.45) 30%, rgba(229,184,59,0.4) 60%, transparent 100%);
+      transform: rotate(6deg);
+      animation: drift-2 22s ease-in-out infinite alternate;
+    }
+    .aurora-3 {
+      top: 72%; height: 300px;
+      background: linear-gradient(90deg, transparent 0%, rgba(140,109,15,0.35) 25%, rgba(212,175,55,0.3) 65%, transparent 100%);
+      transform: rotate(-4deg);
+      animation: drift-3 26s ease-in-out infinite alternate;
+    }
+    @keyframes drift-1 { 0%{transform:rotate(-8deg) translateX(-3%);} 100%{transform:rotate(-6deg) translateX(4%);} }
+    @keyframes drift-2 { 0%{transform:rotate(6deg) translateX(2%);} 100%{transform:rotate(8deg) translateX(-3%);} }
+    @keyframes drift-3 { 0%{transform:rotate(-4deg) translateX(-2%);} 100%{transform:rotate(-2deg) translateX(3%);} }
 
-    .grid-bg {
+    .dot-field {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%);
+      background-image: radial-gradient(rgba(245,245,247,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
     }
 
     .noise {
@@ -109,6 +134,19 @@
       padding: 0 20px;
     }
 
+    .site-brand {
+      margin-top: 28px;
+      margin-bottom: 4px;
+    }
+    .site-brand img {
+      height: 120px;
+      width: auto;
+      display: block;
+    }
+    @media (max-width: 640px) {
+      .site-brand img { height: 96px; }
+    }
+
     /* ── Hero / VSL section ── */
     .hero {
       display: flex;
@@ -121,23 +159,13 @@
     }
 
     .sound-hint {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border-radius: 100px;
-      background: rgba(240, 199, 94, 0.1);
-      border: 1px solid rgba(240, 199, 94, 0.2);
-      font-size: 13px;
-      font-weight: 500;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(15px, 1.8vw, 18px);
+      font-weight: 600;
+      letter-spacing: -0.005em;
       color: var(--gold-glow);
       margin-bottom: 24px;
-    }
-
-    .sound-hint svg {
-      width: 16px;
-      height: 16px;
-      fill: var(--gold-light);
+      text-align: center;
     }
 
     /* ── Video player ── */
@@ -158,6 +186,7 @@
 
     /* ── Headline ── */
     .hero h1 {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: clamp(24px, 4vw, 40px);
       font-weight: 800;
       line-height: 1.15;
@@ -227,6 +256,7 @@
     }
 
     .testimonials h2 {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       text-align: center;
       font-size: clamp(24px, 4vw, 36px);
       font-weight: 800;
@@ -381,21 +411,21 @@
 
   <!-- Ambient background -->
   <div class="ambient">
-    <div class="ambient-orb ambient-orb--1"></div>
-    <div class="ambient-orb ambient-orb--2"></div>
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
   </div>
-  <div class="grid-bg"></div>
+  <div class="dot-field"></div>
   <div class="noise"></div>
 
   <!-- Page content -->
   <main class="page">
 
+    <a href="/" class="site-brand"><img src="/images/logo-256.png?v=4" alt="Wholesale Elite Network"></a>
+
     <!-- Hero / VSL section -->
     <section class="hero">
-      <div class="sound-hint">
-        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-        Play The Video To Turn On Sound
-      </div>
+      <div class="sound-hint">Your free resources are being sent to you now.</div>
 
       <!-- Wistia VSL -->
       <div class="video-wrap">
@@ -411,11 +441,11 @@
         </div>
       </div>
 
-      <h1>Discover How Our New <span class="highlight">'D.F.Y. Wholesaling System'</span> Is Helping Complete Beginners Close 5 Figure Deals Without Spending Thousands On Marketing</h1>
+      <h1>See How Our System Is Putting Beginner Wholesalers On <span class="highlight">5 Figure Plus Months</span> Without Burning Thousands On Marketing</h1>
 
       <p class="sub">If you are ready to get started, apply below.</p>
 
-      <a href="#application-placeholder" target="_blank" class="cta-btn">
+      <a href="/apply?influencer=Nolan&source=Instagram" class="cta-btn">
         APPLY NOW
         <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -425,7 +455,7 @@
 
     <!-- Testimonials -->
     <section class="testimonials" id="apply">
-      <h2>A Few Of Our 5 & 6 Figure Students...</h2>
+      <h2>A Few Of Our Students Closing Multiple Deals Per Month</h2>
 
       <div class="testimonials-grid">
         <div class="testimonial-card">
@@ -464,7 +494,7 @@
       </div>
 
       <div class="testimonials-cta">
-        <a href="#application-placeholder" target="_blank" class="cta-btn">
+        <a href="/apply?influencer=Nolan&source=Instagram" class="cta-btn">
           APPLY NOW
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -474,7 +504,7 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-top">
-        &copy; <script>document.write(new Date().getFullYear())</script> HVU Consulting LLC &nbsp;|&nbsp; <a href="#">Read Our Policies</a>
+        &copy; <script>document.write(new Date().getFullYear())</script> Wholesaling Elite LLC &nbsp;|&nbsp; <a href="#">Read Our Policies</a>
       </div>
       <p class="footer-disclaimer">
         Any financial numbers referenced here, or on any of our sites or emails, are simply estimates, projections, or past results and should not be considered exact, actual, or as a promise of potential earnings. All numbers are illustrative only. Your results will depend on many factors, including your background, experience, and work ethic. There are no guarantees of success or income.
