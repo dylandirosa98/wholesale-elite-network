@@ -287,6 +287,13 @@
       text-align:center;
       padding:30px;
     }
+    .booking-embed.has-widget {
+      border:none; padding:0; background:transparent;
+      display:block; min-height:700px;
+    }
+    .booking-embed .calendly-inline-widget {
+      width:100%; min-width:0; min-height:700px; border-radius:14px; overflow:hidden;
+    }
     .booking-embed .placeholder {
       color:var(--text-3); font-size:14px; line-height:1.55;
     }
@@ -501,8 +508,40 @@
   <script>
     // Capture source from URL params
     const params = new URLSearchParams(window.location.search);
-    document.getElementById('hidInfluencer').value = params.get('influencer') || '';
-    document.getElementById('hidSource').value = params.get('source') || '';
+    const influencerParam = params.get('influencer') || '';
+    const sourceParam = params.get('source') || '';
+    document.getElementById('hidInfluencer').value = influencerParam;
+    document.getElementById('hidSource').value = sourceParam;
+    const isZach = influencerParam.toLowerCase() === 'zach';
+
+    // Conditionally inject Calendly inline embed for Zach + load widget script
+    const bookingEmbed = document.getElementById('bookingEmbed');
+    let bookingConfirmed = !isZach; // Nolan/empty: no booking gate; Zach: must book
+    if (isZach) {
+      bookingEmbed.classList.add('has-widget');
+      bookingEmbed.innerHTML =
+        '<div class="calendly-inline-widget" data-url="https://calendly.com/zachkachai07/30min?hide_gdpr_banner=1&background_color=0e0e16&text_color=ffffff&primary_color=d4af37"></div>';
+      const s = document.createElement('script');
+      s.src = 'https://assets.calendly.com/assets/external/widget.js';
+      s.async = true;
+      document.body.appendChild(s);
+
+      // Listen for Calendly booking-completed event
+      window.addEventListener('message', (e) => {
+        if (!e.data || typeof e.data !== 'object') return;
+        if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+          if (e.data.event === 'calendly.event_scheduled') {
+            bookingConfirmed = true;
+            if (current === total - 1) {
+              btnNext.disabled = false;
+              btnNext.textContent = 'Finish ✓';
+              // Auto-submit on booking complete
+              btnNext.click();
+            }
+          }
+        }
+      });
+    }
 
     const form = document.getElementById('applicationForm');
     const steps = Array.from(form.querySelectorAll('.step'));
@@ -518,7 +557,19 @@
       fill.style.width = (((current + 1) / total) * 100) + '%';
       stepLabel.textContent = `Step ${current + 1} of ${total}`;
       btnBack.disabled = current === 0;
-      btnNext.textContent = current === total - 1 ? 'Submit' : 'Continue →';
+      const onLastStep = current === total - 1;
+      if (onLastStep) {
+        if (isZach && !bookingConfirmed) {
+          btnNext.disabled = true;
+          btnNext.textContent = 'Book a time above to continue';
+        } else {
+          btnNext.disabled = false;
+          btnNext.textContent = 'Submit';
+        }
+      } else {
+        btnNext.disabled = false;
+        btnNext.textContent = 'Continue →';
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -547,6 +598,7 @@
     btnNext.addEventListener('click', async () => {
       if (!validateStep(current)) return;
       if (current === total - 1) {
+        if (isZach && !bookingConfirmed) return; // booking required for Zach
         btnNext.disabled = true;
         btnNext.textContent = 'Submitting...';
         const data = Object.fromEntries(new FormData(form).entries());
