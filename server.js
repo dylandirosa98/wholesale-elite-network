@@ -41,12 +41,15 @@ app.get('/event',         send('webinar.html'));
 app.get('/confirmation',  send('confirmation.html'));
 
 // ── Resend email helpers ──────────────────────────────────────────────
-async function sendResendEmail({ subject, html, replyTo }) {
+async function sendResendEmail({ subject, html, to, replyTo }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error('RESEND_API_KEY missing');
+  const recipients = to
+    ? (Array.isArray(to) ? to : [to])
+    : [process.env.LEAD_TO_EMAIL || 'dylandirosa980@gmail.com'];
   const body = {
-    from: process.env.RESEND_FROM || 'forms@pythonwebsolutions.com',
-    to: [process.env.LEAD_TO_EMAIL || 'dylandirosa980@gmail.com'],
+    from: process.env.RESEND_FROM || 'Wholesaling Elite Network <hello@wholesalingelitenetwork.com>',
+    to: recipients,
     subject,
     html,
   };
@@ -63,6 +66,44 @@ async function sendResendEmail({ subject, html, replyTo }) {
   const text = await r.text();
   if (!r.ok) throw new Error(`Resend ${r.status}: ${text}`);
   return JSON.parse(text);
+}
+
+const RESOURCES_DRIVE_URL = 'https://drive.google.com/drive/folders/1IiP1v_UMGu7iBsGhH7Jwe7N7VnNdeGXd?usp=drive_link';
+const LOGO_URL = 'https://wholesalingelitenetwork.com/images/logo-512.png';
+
+function resourcesEmailHtml(firstName) {
+  const name = (firstName || '').trim() || 'there';
+  return `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#09090F;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#F5F5F7;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#09090F;padding:32px 16px;">
+    <tr><td align="center">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width:560px;background:#0E0E16;border:1px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;">
+        <tr><td align="center" style="padding:32px 24px 8px;">
+          <img src="${LOGO_URL}" alt="Wholesaling Elite Network" width="160" style="display:block;border:0;outline:none;text-decoration:none;height:auto;">
+        </td></tr>
+        <tr><td style="padding:8px 32px 0;">
+          <h1 style="margin:0;font-size:24px;font-weight:800;letter-spacing:-0.02em;color:#FFFFFF;text-align:center;">Your FREE Wholesale Real Estate Resources</h1>
+        </td></tr>
+        <tr><td style="padding:18px 32px 0;">
+          <p style="margin:0 0 14px;font-size:15.5px;line-height:1.6;color:rgba(245,245,247,0.88);">Hey ${esc(name)},</p>
+          <p style="margin:0 0 14px;font-size:15.5px;line-height:1.6;color:rgba(245,245,247,0.88);">Thanks for signing up! Here's the link to claim your free wholesale real estate resources:</p>
+        </td></tr>
+        <tr><td align="center" style="padding:16px 32px 8px;">
+          <a href="${RESOURCES_DRIVE_URL}" style="display:inline-block;padding:14px 30px;border-radius:100px;background:linear-gradient(135deg,#F0C75E,#D4AF37);color:#1a1408;font-weight:700;font-size:15px;text-decoration:none;letter-spacing:-0.005em;">Claim My Free Resources →</a>
+        </td></tr>
+        <tr><td style="padding:8px 32px 24px;">
+          <p style="margin:14px 0 0;font-size:13px;line-height:1.55;color:rgba(245,245,247,0.55);text-align:center;">Or paste this link into your browser:<br>
+            <a href="${RESOURCES_DRIVE_URL}" style="color:#F5D77E;word-break:break-all;">${RESOURCES_DRIVE_URL}</a>
+          </p>
+        </td></tr>
+        <tr><td style="padding:18px 32px 28px;border-top:1px solid rgba(255,255,255,0.06);">
+          <p style="margin:0;font-size:12px;line-height:1.55;color:rgba(245,245,247,0.45);text-align:center;">
+            Wholesaling Elite LLC &nbsp;·&nbsp; wholesalingelitenetwork.com
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+  </body></html>`;
 }
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
@@ -108,6 +149,18 @@ app.post('/api/lead', async (req, res) => {
       html: emailWrap('New Lead — Tools Form', rows),
       replyTo: email || undefined,
     });
+    // Customer-facing email with the Drive resources link
+    if (email) {
+      try {
+        await sendResendEmail({
+          subject: 'Your FREE Wholesale Real Estate Resources',
+          html: resourcesEmailHtml(firstName),
+          to: email,
+        });
+      } catch (custErr) {
+        console.error('customer email failed:', custErr.message);
+      }
+    }
     res.json({ ok: true });
   } catch (err) {
     console.error('lead email failed:', err.message);
