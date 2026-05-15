@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+  <title>Wholesaling Elite Network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --gold-deep:#B8860B; --gold-main:#D4AF37; --gold-light:#F0C75E; --gold-glow:#F5D77E;
+      --bg:#09090F; --border:rgba(255,255,255,0.08);
+      --text:#FFFFFF; --text-2:rgba(245,245,247,0.7);
+    }
+    body {
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+      background:var(--bg); color:var(--text);
+      min-height:100vh; overflow-x:hidden;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      display:flex; flex-direction:column;
+    }
+
+    /* Aurora bg */
+    .ambient { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+    .ambient::before {
+      content:''; position:absolute; top:-30%; left:50%; transform:translateX(-50%);
+      width:1200px; height:900px;
+      background:radial-gradient(ellipse at center, rgba(212,175,55,0.28) 0%, rgba(184,134,11,0.12) 30%, transparent 65%);
+      filter:blur(40px);
+    }
+    .ambient::after {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse at 50% 100%, rgba(140,109,15,0.18) 0%, transparent 55%);
+    }
+    .aurora { position:absolute; width:140%; height:380px; left:-20%; filter:blur(70px); mix-blend-mode:screen; opacity:0.4; }
+    .aurora-1 { top:14%; background:linear-gradient(90deg,transparent,rgba(212,175,55,0.55) 45%,rgba(245,215,126,0.35) 70%,transparent); transform:rotate(-8deg); animation:d1 18s ease-in-out infinite alternate; }
+    .aurora-2 { top:60%; background:linear-gradient(90deg,transparent,rgba(184,134,11,0.45) 30%,rgba(229,184,59,0.4) 60%,transparent); transform:rotate(6deg); animation:d2 22s ease-in-out infinite alternate; }
+    @keyframes d1 { 0%{transform:rotate(-8deg) translateX(-3%);} 100%{transform:rotate(-6deg) translateX(4%);} }
+    @keyframes d2 { 0%{transform:rotate(6deg) translateX(2%);} 100%{transform:rotate(8deg) translateX(-3%);} }
+    .dot-field {
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:radial-gradient(rgba(245,245,247,0.06) 1px, transparent 1px);
+      background-size:28px 28px;
+      mask-image:radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+      -webkit-mask-image:radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+    }
+
+    main {
+      position:relative; z-index:2;
+      flex:1;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center;
+      padding:60px 24px;
+    }
+    .logo {
+      height:140px; width:auto; display:block; margin-bottom:36px;
+    }
+    h1 {
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:clamp(32px,5vw,52px);
+      font-weight:800; letter-spacing:-0.03em; line-height:1.08;
+      max-width:760px; margin:0 0 18px;
+      background:linear-gradient(180deg,#FFFFFF 0%, rgba(255,255,255,0.78) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    h1 .accent {
+      background:linear-gradient(135deg, var(--gold-light), var(--gold-glow));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    p.lead {
+      font-size:clamp(15px,1.8vw,18px);
+      color:var(--text-2); line-height:1.6;
+      max-width:560px; margin:0 0 32px;
+    }
+    footer {
+      position:relative; z-index:2;
+      padding:24px;
+      text-align:center;
+      font-size:12px; color:rgba(245,245,247,0.45);
+      border-top:1px solid var(--border);
+    }
+    @media (max-width:640px) {
+      .logo { height:110px; margin-bottom:28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+  </div>
+  <div class="dot-field"></div>
+
+  <main>
+    <img src="/images/logo-256.png?v=4" alt="Wholesaling Elite Network" class="logo">
+    <h1>Helping wholesalers hit <span class="accent">5 Figure Plus Months</span>.</h1>
+    <p class="lead">Free resources, proven systems, and a tight-knit community for new and growing real estate investors.</p>
+  </main>
+
+  <footer>
+    &copy; <script>document.write(new Date().getFullYear())</script> Wholesaling Elite LLC
+  </footer>
+</body>
+</html>

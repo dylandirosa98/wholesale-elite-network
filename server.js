@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true, limit: '64kb' }));
 const send = (file) => (req, res) =>
   res.sendFile(path.join(__dirname, 'public', file));
 
-app.get('/', (req, res) => res.redirect('/reinetwork'));
+app.get('/', send('home.html'));
 
 // Inner-circle style pages (REI Network variants)
 app.get('/reinetwork',           send('circle/Nolan TikTok.html'));
