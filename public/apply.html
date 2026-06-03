@@ -519,12 +519,14 @@
     const sourceParam = params.get('source') || '';
     document.getElementById('hidInfluencer').value = influencerParam;
     document.getElementById('hidSource').value = sourceParam;
-    const isZach = influencerParam.toLowerCase() === 'zach';
+    const influencerName = influencerParam.toLowerCase();
+    const isZach = influencerName === 'zach';
+    const requiresBooking = isZach || influencerName === 'nolan';
 
-    // Conditionally inject Calendly inline embed for Zach + load widget script
+    // Conditionally inject Calendly inline embed for Zach and Nolan + load widget script
     const bookingEmbed = document.getElementById('bookingEmbed');
-    let bookingConfirmed = !isZach; // Nolan/empty: no booking gate; Zach: must book
-    if (isZach) {
+    let bookingConfirmed = !requiresBooking;
+    if (requiresBooking) {
       bookingEmbed.classList.add('has-widget');
       bookingEmbed.innerHTML =
         '<div class="calendly-inline-widget" data-url="https://calendly.com/zachkachai07/30min?primary_color=e3b505" style="min-width:320px;height:700px;"></div>';
@@ -596,7 +598,7 @@
       btnBack.disabled = current === 0;
       const onLastStep = current === total - 1;
       if (onLastStep) {
-        if (isZach && !bookingConfirmed) {
+        if (requiresBooking && !bookingConfirmed) {
           btnNext.disabled = true;
           btnNext.textContent = 'Book a time above to continue';
         } else {
@@ -635,7 +637,7 @@
     btnNext.addEventListener('click', async () => {
       if (!validateStep(current)) return;
       if (current === total - 1) {
-        if (isZach && !bookingConfirmed) return; // booking required for Zach
+        if (requiresBooking && !bookingConfirmed) return; // booking required for Zach and Nolan
         btnNext.disabled = true;
         btnNext.textContent = 'Submitting...';
         const data = Object.fromEntries(new FormData(form).entries());
