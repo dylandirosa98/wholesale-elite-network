@@ -46,7 +46,7 @@ async function sendResendEmail({ subject, html, to, replyTo }) {
   if (!apiKey) throw new Error('RESEND_API_KEY missing');
   const recipients = to
     ? (Array.isArray(to) ? to : [to])
-    : ['zachkachai07@gmail.com', 'nolan23mc@gmail.com'];
+    : ['zachkachai07@gmail.com', 'nolan23mc@gmail.com', 'dylandirosa980@gmail.com'];
   const body = {
     from: process.env.RESEND_FROM || 'Wholesaling Elite Network <hello@wholesalingelitenetwork.com>',
     to: recipients,
