@@ -68,6 +68,14 @@ async function sendResendEmail({ subject, html, to, replyTo }) {
   return JSON.parse(text);
 }
 
+function notificationRecipients(influencer) {
+  const name = String(influencer || '').trim().toLowerCase();
+  if (name === 'zach') {
+    return ['zachkachai07@gmail.com', 'dylandirosa980@gmail.com'];
+  }
+  return ['zachkachai07@gmail.com', 'nolan23mc@gmail.com', 'dylandirosa980@gmail.com'];
+}
+
 const RESOURCES_DRIVE_URL = 'https://drive.google.com/drive/folders/1IiP1v_UMGu7iBsGhH7Jwe7N7VnNdeGXd?usp=drive_link';
 const LOGO_URL = 'https://wholesalingelitenetwork.com/images/logo-512.png';
 
@@ -147,6 +155,7 @@ app.post('/api/lead', async (req, res) => {
     await sendResendEmail({
       subject,
       html: emailWrap('New Lead — Tools Form', rows),
+      to: notificationRecipients(influencer),
       replyTo: email || undefined,
     });
     // Customer-facing email with the Drive resources link
@@ -189,6 +198,7 @@ app.post('/api/application', async (req, res) => {
     await sendResendEmail({
       subject,
       html: emailWrap('New Application — /apply', rows),
+      to: notificationRecipients(b.influencer),
       replyTo: b.email || undefined,
     });
     res.json({ ok: true });
