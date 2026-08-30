@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
-  <title>Wholesale Elite Network | The Gateway To Your First Real Estate Deal</title>
+  <script src="/brand.js"></script>
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
+  <title>Fee Finders | The Gateway To Your First Real Estate Deal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,15 +20,15 @@
     }
 
     :root {
-      --gold-deep: #B8860B;
-      --gold-main: #D4AF37;
-      --gold-mid: #E5B83B;
-      --gold-light: #F0C75E;
-      --gold-glow: #F5D77E;
-      --bg-primary: #09090F;
+      --gold-deep:#4B5563;
+      --gold-main:#9CA3AF;
+      --gold-mid:#D1D5DB;
+      --gold-light:#E5E7EB;
+      --gold-glow: #FFFFFF;
+      --bg-primary: #09090B;
       --bg-card: rgba(255, 255, 255, 0.03);
       --border-subtle: rgba(255, 255, 255, 0.06);
-      --border-hover: rgba(240, 199, 94, 0.3);
+      --border-hover: rgba(var(--gold-light-rgb), 0.3);
       --text-primary: #F5F5F7;
       --text-secondary: rgba(245, 245, 247, 0.6);
       --text-muted: rgba(245, 245, 247, 0.4);
@@ -59,8 +60,8 @@
       transform: translateX(-50%);
       width: 1200px; height: 900px;
       background: radial-gradient(ellipse at center,
-        rgba(212, 175, 55, 0.28) 0%,
-        rgba(184, 134, 11, 0.12) 30%,
+        rgba(var(--gold-main-rgb), 0.28) 0%,
+        rgba(var(--gold-deep-rgb), 0.12) 30%,
         transparent 65%);
       filter: blur(40px);
     }
@@ -68,7 +69,7 @@
       content: '';
       position: absolute; inset: 0;
       background: radial-gradient(ellipse at 50% 100%,
-        rgba(140, 109, 15, 0.18) 0%,
+        rgba(var(--gold-shadow-rgb), 0.18) 0%,
         transparent 55%);
     }
     .aurora {
@@ -82,19 +83,19 @@
     }
     .aurora-1 {
       top: 12%;
-      background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.55) 45%, rgba(245,215,126,0.35) 70%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, rgba(var(--gold-main-rgb),0.55) 45%, rgba(255,255,255,0.35) 70%, transparent 100%);
       transform: rotate(-8deg);
       animation: drift-1 18s ease-in-out infinite alternate;
     }
     .aurora-2 {
       top: 45%;
-      background: linear-gradient(90deg, transparent 0%, rgba(184,134,11,0.45) 30%, rgba(229,184,59,0.4) 60%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, rgba(var(--gold-deep-rgb),0.45) 30%, rgba(var(--gold-mid-rgb),0.4) 60%, transparent 100%);
       transform: rotate(6deg);
       animation: drift-2 22s ease-in-out infinite alternate;
     }
     .aurora-3 {
       top: 72%; height: 300px;
-      background: linear-gradient(90deg, transparent 0%, rgba(140,109,15,0.35) 25%, rgba(212,175,55,0.3) 65%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, rgba(var(--gold-shadow-rgb),0.35) 25%, rgba(var(--gold-main-rgb),0.3) 65%, transparent 100%);
       transform: rotate(-4deg);
       animation: drift-3 26s ease-in-out infinite alternate;
     }
@@ -137,14 +138,14 @@
     .site-brand {
       margin-top: 28px;
       margin-bottom: 4px;
+      max-width: calc(100vw - 40px);
     }
     .site-brand img {
-      height: 120px;
+      height: 64px;
       width: auto;
+      max-width: 100%;
+      object-fit: contain;
       display: block;
-    }
-    @media (max-width: 640px) {
-      .site-brand img { height: 96px; }
     }
 
     /* ── Hero / VSL section ── */
@@ -175,11 +176,11 @@
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid var(--border-subtle);
-      background: rgba(20, 20, 30, 0.6);
+      background: rgba(20,20,22, 0.6);
       box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.03),
         0 20px 60px -10px rgba(0, 0, 0, 0.5),
-        0 0 120px -20px rgba(212, 175, 55, 0.15);
+        0 0 120px -20px rgba(var(--gold-main-rgb), 0.15);
       margin-bottom: 36px;
     }
 
@@ -232,7 +233,7 @@
 
     .cta-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.45);
+      box-shadow: 0 12px 40px rgba(var(--gold-main-rgb), 0.45);
     }
 
     .cta-btn svg {
@@ -421,7 +422,7 @@
   <!-- Page content -->
   <main class="page">
 
-    <div class="site-brand"><img src="/images/logo-256.png?v=4" alt="Wholesale Elite Network"></div>
+    <div class="site-brand"><img src="/images/fee-finders-logo.png?v=1" alt="Fee Finders"></div>
 
     <!-- Hero / VSL section -->
     <section class="hero">

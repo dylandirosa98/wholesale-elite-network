@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
-  <title>Apply : Wholesale Elite Network</title>
+  <script src="/brand.js"></script>
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
+  <title>Apply : Fee Finders</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,16 +16,16 @@
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
     :root {
-      --gold-deep:#B8860B;
-      --gold-main:#D4AF37;
-      --gold-mid:#E5B83B;
-      --gold-light:#F0C75E;
-      --gold-glow:#F5D77E;
-      --bg:#09090F;
-      --bg-2:#0E0E16;
+      --gold-deep:#4B5563;
+      --gold-main:#9CA3AF;
+      --gold-mid:#D1D5DB;
+      --gold-light:#E5E7EB;
+      --gold-glow:#FFFFFF;
+      --bg:#09090B;
+      --bg-2:#111113;
       --card:rgba(255,255,255,0.05);
       --border:rgba(255,255,255,0.12);
-      --border-gold:rgba(240,199,94,0.4);
+      --border-gold:rgba(var(--gold-light-rgb),0.4);
       --text:#FFFFFF;
       --text-2:rgba(245,245,247,0.85);
       --text-3:rgba(245,245,247,0.62);
@@ -45,23 +46,23 @@
       content:''; position:absolute; top:-30%; left:50%; transform:translateX(-50%);
       width:1200px; height:900px;
       background:radial-gradient(ellipse at center,
-        rgba(212,175,55,0.28) 0%,
-        rgba(184,134,11,0.12) 30%,
+        rgba(var(--gold-main-rgb),0.28) 0%,
+        rgba(var(--gold-deep-rgb),0.12) 30%,
         transparent 65%);
       filter:blur(40px);
     }
     .ambient::after {
       content:''; position:absolute; inset:0;
       background:radial-gradient(ellipse at 50% 100%,
-        rgba(140,109,15,0.18) 0%, transparent 55%);
+        rgba(var(--gold-shadow-rgb),0.18) 0%, transparent 55%);
     }
     .aurora {
       position:absolute; width:140%; height:380px; left:-20%;
       filter:blur(70px); mix-blend-mode:screen; opacity:0.32;
     }
-    .aurora-1 { top:12%; background:linear-gradient(90deg,transparent,rgba(212,175,55,0.55) 45%,rgba(245,215,126,0.35) 70%,transparent); transform:rotate(-8deg); animation:drift1 18s ease-in-out infinite alternate; }
-    .aurora-2 { top:45%; background:linear-gradient(90deg,transparent,rgba(184,134,11,0.45) 30%,rgba(229,184,59,0.4) 60%,transparent); transform:rotate(6deg); animation:drift2 22s ease-in-out infinite alternate; }
-    .aurora-3 { top:72%; height:300px; background:linear-gradient(90deg,transparent,rgba(140,109,15,0.35) 25%,rgba(212,175,55,0.3) 65%,transparent); transform:rotate(-4deg); animation:drift3 26s ease-in-out infinite alternate; }
+    .aurora-1 { top:12%; background:linear-gradient(90deg,transparent,rgba(var(--gold-main-rgb),0.55) 45%,rgba(255,255,255,0.35) 70%,transparent); transform:rotate(-8deg); animation:drift1 18s ease-in-out infinite alternate; }
+    .aurora-2 { top:45%; background:linear-gradient(90deg,transparent,rgba(var(--gold-deep-rgb),0.45) 30%,rgba(var(--gold-mid-rgb),0.4) 60%,transparent); transform:rotate(6deg); animation:drift2 22s ease-in-out infinite alternate; }
+    .aurora-3 { top:72%; height:300px; background:linear-gradient(90deg,transparent,rgba(var(--gold-shadow-rgb),0.35) 25%,rgba(var(--gold-main-rgb),0.3) 65%,transparent); transform:rotate(-4deg); animation:drift3 26s ease-in-out infinite alternate; }
     @keyframes drift1 { 0%{transform:rotate(-8deg) translateX(-3%);} 100%{transform:rotate(-6deg) translateX(4%);} }
     @keyframes drift2 { 0%{transform:rotate(6deg) translateX(2%);} 100%{transform:rotate(8deg) translateX(-3%);} }
     @keyframes drift3 { 0%{transform:rotate(-4deg) translateX(-2%);} 100%{transform:rotate(-2deg) translateX(3%);} }
@@ -85,10 +86,10 @@
       padding:22px 28px; max-width:1200px; width:100%; margin:0 auto;
     }
     .brand {
-      display:flex; align-items:center;
+      display:flex; align-items:center; max-width:calc(100vw - 40px);
     }
     .brand img {
-      height:54px; width:auto; display:block;
+      height:64px; width:auto; max-width:100%; object-fit:contain; display:block;
     }
 
     .progress-wrap {
@@ -200,7 +201,7 @@
     }
     .scale-opt:hover {
       border-color:var(--border-gold);
-      background:rgba(240,199,94,0.05);
+      background:rgba(var(--gold-light-rgb),0.05);
     }
     .scale-opt input { display:none; }
     .scale-opt .num {
@@ -220,7 +221,7 @@
     }
     .scale-opt:has(input:checked) {
       border-color:var(--gold-main);
-      background:rgba(240,199,94,0.1);
+      background:rgba(var(--gold-light-rgb),0.1);
       box-shadow:0 0 0 1px var(--gold-main) inset;
     }
     @media (max-width: 560px) {
@@ -248,7 +249,7 @@
     }
     .choice:hover {
       border-color:var(--border-gold);
-      background:rgba(240,199,94,0.05);
+      background:rgba(var(--gold-light-rgb),0.05);
     }
     .choice input { display:none; }
     .choice .key {
@@ -267,18 +268,18 @@
     }
     .choice:has(input:checked) {
       border-color:var(--gold-main);
-      background:rgba(240,199,94,0.1);
+      background:rgba(var(--gold-light-rgb),0.1);
       box-shadow:0 0 0 1px var(--gold-main) inset;
     }
     .choice:has(input:checked) .key {
       background:linear-gradient(135deg, var(--gold-light), var(--gold-main));
-      color:#1a1408; border-color:transparent;
+      color:var(--btn-ink); border-color:transparent;
     }
 
     /* Booking step */
     .booking-note {
       padding:18px 20px;
-      background:rgba(240,199,94,0.08);
+      background:rgba(var(--gold-light-rgb),0.08);
       border:1px solid var(--border-gold);
       border-radius:14px;
       font-size:14px; color:#FFFFFF; line-height:1.6;
@@ -333,17 +334,17 @@
     }
     .btn-back:disabled { opacity:0.3; cursor:not-allowed; }
     .btn-next {
-      color:#1a1408;
+      color:var(--btn-ink);
       background:linear-gradient(135deg, var(--gold-light), var(--gold-main));
       box-shadow:
         0 0 0 1px rgba(255,255,255,0.12) inset,
-        0 8px 24px -6px rgba(212,175,55,0.5);
+        0 8px 24px -6px rgba(var(--gold-main-rgb),0.5);
     }
     .btn-next:hover {
       transform:translateY(-1px);
       box-shadow:
         0 0 0 1px rgba(255,255,255,0.2) inset,
-        0 12px 30px -6px rgba(212,175,55,0.6);
+        0 12px 30px -6px rgba(var(--gold-main-rgb),0.6);
     }
     .btn-next:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
 
@@ -372,7 +373,7 @@
   <main class="page">
 
     <header class="topbar">
-      <div class="brand"><img src="/images/logo-256.png?v=4" alt="Wholesale Elite Network"></div>
+      <div class="brand"><img src="/images/fee-finders-logo.png?v=1" alt="Fee Finders"></div>
     </header>
 
     <div class="progress-wrap">
@@ -529,7 +530,7 @@
     if (requiresBooking) {
       bookingEmbed.classList.add('has-widget');
       bookingEmbed.innerHTML =
-        '<div class="calendly-inline-widget" data-url="https://calendly.com/zachkachai07/30min?primary_color=e3b505" style="min-width:320px;height:700px;"></div>';
+        '<div class="calendly-inline-widget" data-url="https://calendly.com/zachkachai07/30min?primary_color=' + (window.__BRAND_CALENDLY__ || 'd1d5db') + '" style="min-width:320px;height:700px;"></div>';
       const s = document.createElement('script');
       s.src = 'https://assets.calendly.com/assets/external/widget.js';
       s.async = true;
@@ -645,7 +646,7 @@
           await fetch('/api/application', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
+            body: JSON.stringify(Object.assign({}, data, { brand: window.__BRAND__ || 'ff' })),
             keepalive: true,
           });
         } catch (err) { /* still redirect on email failure */ }

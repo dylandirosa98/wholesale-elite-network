@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
-  <title>Wholesale Elite Network | Free Live Training — Get Your First Wholesale Deal</title>
+  <script src="/brand.js"></script>
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
+  <title>Fee Finders | Free Live Training — Get Your First Wholesale Deal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,16 +16,16 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --gold-deep: #B8860B;
-      --gold-main: #D4AF37;
-      --gold-mid: #E5B83B;
-      --gold-light: #F0C75E;
-      --gold-glow: #F5D77E;
-      --bg-primary: #09090F;
+      --gold-deep:#4B5563;
+      --gold-main:#9CA3AF;
+      --gold-mid:#D1D5DB;
+      --gold-light:#E5E7EB;
+      --gold-glow: #FFFFFF;
+      --bg-primary: #09090B;
       --bg-card: rgba(255, 255, 255, 0.03);
-      --bg-card-solid: rgba(20, 20, 30, 0.6);
+      --bg-card-solid: rgba(20,20,22, 0.6);
       --border-subtle: rgba(255, 255, 255, 0.06);
-      --border-hover: rgba(240, 199, 94, 0.3);
+      --border-hover: rgba(var(--gold-light-rgb), 0.3);
       --text-primary: #F5F5F7;
       --text-secondary: rgba(245, 245, 247, 0.6);
       --text-muted: rgba(245, 245, 247, 0.4);
@@ -101,6 +102,7 @@
       border-bottom: 1px solid var(--border-subtle);
     }
     .logo {
+      max-width: calc(100vw - 40px);
       font-family: 'Inter', sans-serif;
       font-size: 18px;
       font-weight: 800;
@@ -125,8 +127,8 @@
       gap: 8px;
       padding: 6px 16px;
       border-radius: 100px;
-      background: rgba(240, 199, 94, 0.1);
-      border: 1px solid rgba(240, 199, 94, 0.25);
+      background: rgba(var(--gold-light-rgb), 0.1);
+      border: 1px solid rgba(var(--gold-light-rgb), 0.25);
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.12em;
@@ -208,11 +210,11 @@
       box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.03),
         0 20px 60px -10px rgba(0, 0, 0, 0.5),
-        0 0 120px -20px rgba(212, 175, 55, 0.15);
+        0 0 120px -20px rgba(var(--gold-main-rgb), 0.15);
     }
     .video-placeholder {
       width: 100%; height: 100%;
-      background: linear-gradient(135deg, #0f0f18 0%, #1a1530 100%);
+      background: linear-gradient(135deg, #151517 0%, #242428 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -222,13 +224,13 @@
     .play-circle {
       width: 76px; height: 76px;
       border-radius: 50%;
-      background: rgba(240, 199, 94, 0.15);
+      background: rgba(var(--gold-light-rgb), 0.15);
       border: 2px solid var(--gold-light);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
-      box-shadow: 0 0 40px rgba(240, 199, 94, 0.25);
+      box-shadow: 0 0 40px rgba(var(--gold-light-rgb), 0.25);
     }
     .play-circle:hover { transform: scale(1.08); }
     .play-circle svg { width: 26px; height: 26px; fill: var(--gold-glow); margin-left: 4px; }
@@ -264,7 +266,7 @@
     }
     .form-wrap input:focus {
       border-color: var(--gold-light);
-      background: rgba(240, 199, 94, 0.05);
+      background: rgba(var(--gold-light-rgb), 0.05);
     }
     .form-wrap input::placeholder { color: var(--text-muted); }
 
@@ -286,7 +288,7 @@
     }
     .cta-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.45);
+      box-shadow: 0 12px 40px rgba(var(--gold-main-rgb), 0.45);
     }
 
     .privacy {
@@ -393,8 +395,8 @@
     .urgency { max-width: 720px; margin: 0 auto 48px; padding: 0 24px; }
     .urgency-box {
       background:
-        linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(15, 14, 20, 0.6) 100%);
-      border: 1px solid rgba(240, 199, 94, 0.25);
+        linear-gradient(135deg, rgba(var(--gold-main-rgb), 0.12) 0%, rgba(21,21,23, 0.6) 100%);
+      border: 1px solid rgba(var(--gold-light-rgb), 0.25);
       border-radius: 14px;
       padding: 32px 28px;
       text-align: center;
@@ -489,7 +491,7 @@
 
     <div class="bar"><span class="dot"></span>Live training — Monday May 6 @ 6pm CT — Spots are limited</div>
 
-    <nav><div class="logo"><img src="/images/logo-256.png?v=4" alt="Wholesale Elite Network" style="height:80px;width:auto;display:block;"></div></nav>
+    <nav><div class="logo"><img src="/images/fee-finders-logo.png?v=1" alt="Fee Finders" style="height:64px;width:auto;max-width:100%;object-fit:contain;display:block;"></div></nav>
 
     <section class="hero">
       <div class="badge reveal">Free live training</div>

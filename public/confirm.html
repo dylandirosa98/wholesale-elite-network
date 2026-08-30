@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+  <script src="/brand.js"></script>
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
   <title>You're In!</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', sans-serif;
-      background: #09090F;
+      background: #09090B;
       color: #F5F5F7;
       min-height: 100vh;
       display: flex;
@@ -29,17 +30,17 @@
       max-width: 400px;
       width: 100%;
       padding: 40px 30px;
-      background: rgba(18, 15, 28, 0.9);
+      background: rgba(18,18,20, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 20px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 120px -40px rgba(212, 175, 55, 0.2);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 120px -40px rgba(var(--gold-main-rgb), 0.2);
     }
 
     .spinner {
       width: 48px;
       height: 48px;
-      border: 3px solid rgba(240, 199, 94, 0.15);
-      border-top-color: #F0C75E;
+      border: 3px solid rgba(var(--gold-light-rgb), 0.15);
+      border-top-color: var(--gold-light);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       margin: 0 auto 24px;
@@ -51,7 +52,7 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #D4AF37, #E5B83B);
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-mid));
       display: none;
       align-items: center;
       justify-content: center;
@@ -111,7 +112,7 @@
       width: 500px;
       height: 500px;
       border-radius: 50%;
-      background: #B8860B;
+      background: var(--gold-deep);
       filter: blur(120px);
       opacity: 0.25;
       top: -200px;

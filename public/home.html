@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
-  <title>Wholesaling Elite Network</title>
+  <script src="/brand.js"></script>
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
+  <title>Fee Finders</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     :root {
-      --gold-deep:#B8860B; --gold-main:#D4AF37; --gold-light:#F0C75E; --gold-glow:#F5D77E;
-      --bg:#09090F; --border:rgba(255,255,255,0.08);
+      --gold-deep:#4B5563; --gold-main:#9CA3AF; --gold-light:#E5E7EB; --gold-glow:#FFFFFF;
+      --bg:#09090B; --border:rgba(255,255,255,0.08);
       --text:#FFFFFF; --text-2:rgba(245,245,247,0.7);
     }
     body {
@@ -31,16 +32,16 @@
     .ambient::before {
       content:''; position:absolute; top:-30%; left:50%; transform:translateX(-50%);
       width:1200px; height:900px;
-      background:radial-gradient(ellipse at center, rgba(212,175,55,0.28) 0%, rgba(184,134,11,0.12) 30%, transparent 65%);
+      background:radial-gradient(ellipse at center, rgba(var(--gold-main-rgb),0.28) 0%, rgba(var(--gold-deep-rgb),0.12) 30%, transparent 65%);
       filter:blur(40px);
     }
     .ambient::after {
       content:''; position:absolute; inset:0;
-      background:radial-gradient(ellipse at 50% 100%, rgba(140,109,15,0.18) 0%, transparent 55%);
+      background:radial-gradient(ellipse at 50% 100%, rgba(var(--gold-shadow-rgb),0.18) 0%, transparent 55%);
     }
     .aurora { position:absolute; width:140%; height:380px; left:-20%; filter:blur(70px); mix-blend-mode:screen; opacity:0.4; }
-    .aurora-1 { top:14%; background:linear-gradient(90deg,transparent,rgba(212,175,55,0.55) 45%,rgba(245,215,126,0.35) 70%,transparent); transform:rotate(-8deg); animation:d1 18s ease-in-out infinite alternate; }
-    .aurora-2 { top:60%; background:linear-gradient(90deg,transparent,rgba(184,134,11,0.45) 30%,rgba(229,184,59,0.4) 60%,transparent); transform:rotate(6deg); animation:d2 22s ease-in-out infinite alternate; }
+    .aurora-1 { top:14%; background:linear-gradient(90deg,transparent,rgba(var(--gold-main-rgb),0.55) 45%,rgba(255,255,255,0.35) 70%,transparent); transform:rotate(-8deg); animation:d1 18s ease-in-out infinite alternate; }
+    .aurora-2 { top:60%; background:linear-gradient(90deg,transparent,rgba(var(--gold-deep-rgb),0.45) 30%,rgba(var(--gold-mid-rgb),0.4) 60%,transparent); transform:rotate(6deg); animation:d2 22s ease-in-out infinite alternate; }
     @keyframes d1 { 0%{transform:rotate(-8deg) translateX(-3%);} 100%{transform:rotate(-6deg) translateX(4%);} }
     @keyframes d2 { 0%{transform:rotate(6deg) translateX(2%);} 100%{transform:rotate(8deg) translateX(-3%);} }
     .dot-field {
@@ -59,7 +60,7 @@
       padding:60px 24px;
     }
     .logo {
-      height:140px; width:auto; display:block; margin-bottom:36px;
+      height:64px; width:auto; max-width:calc(100vw - 40px); object-fit:contain; display:block; margin-bottom:36px;
     }
     h1 {
       font-family:'Plus Jakarta Sans',sans-serif;
@@ -86,7 +87,7 @@
       border-top:1px solid var(--border);
     }
     @media (max-width:640px) {
-      .logo { height:110px; margin-bottom:28px; }
+      .logo { margin-bottom:28px; }
     }
   </style>
 </head>
@@ -98,7 +99,7 @@
   <div class="dot-field"></div>
 
   <main>
-    <img src="/images/logo-256.png?v=4" alt="Wholesaling Elite Network" class="logo">
+    <img src="/images/fee-finders-logo.png?v=1" alt="Fee Finders" class="logo">
     <h1>Helping wholesalers hit <span class="accent">5 Figure Plus Months</span>.</h1>
     <p class="lead">Free resources, proven systems, and a tight-knit community for new and growing real estate investors.</p>
   </main>

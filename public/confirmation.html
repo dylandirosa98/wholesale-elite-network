@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/webp" href="/favicon.webp?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
-  <title>Wholesale Elite Network | You're Registered — Watch This Before Monday</title>
+  <script src="/brand.js"></script>
+  <link rel="icon" type="image/webp" href="/favicon.webp?v=3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
+  <title>Fee Finders | You're Registered — Watch This Before Monday</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,16 +16,16 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --gold-deep: #B8860B;
-      --gold-main: #D4AF37;
-      --gold-mid: #E5B83B;
-      --gold-light: #F0C75E;
-      --gold-glow: #F5D77E;
-      --bg-primary: #09090F;
+      --gold-deep:#4B5563;
+      --gold-main:#9CA3AF;
+      --gold-mid:#D1D5DB;
+      --gold-light:#E5E7EB;
+      --gold-glow: #FFFFFF;
+      --bg-primary: #09090B;
       --bg-card: rgba(255, 255, 255, 0.03);
-      --bg-card-solid: rgba(20, 20, 30, 0.6);
+      --bg-card-solid: rgba(20,20,22, 0.6);
       --border-subtle: rgba(255, 255, 255, 0.06);
-      --border-hover: rgba(240, 199, 94, 0.3);
+      --border-hover: rgba(var(--gold-light-rgb), 0.3);
       --text-primary: #F5F5F7;
       --text-secondary: rgba(245, 245, 247, 0.6);
       --text-muted: rgba(245, 245, 247, 0.4);
@@ -100,6 +101,7 @@
       border-bottom: 1px solid var(--border-subtle);
     }
     .logo {
+      max-width: calc(100vw - 40px);
       font-size: 18px;
       font-weight: 800;
       letter-spacing: -0.02em;
@@ -120,13 +122,13 @@
     .check-circle {
       width: 72px; height: 72px;
       border-radius: 50%;
-      background: rgba(240, 199, 94, 0.12);
+      background: rgba(var(--gold-light-rgb), 0.12);
       border: 2px solid var(--gold-light);
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 22px;
-      box-shadow: 0 0 40px rgba(240, 199, 94, 0.3);
+      box-shadow: 0 0 40px rgba(var(--gold-light-rgb), 0.3);
       animation: check-pop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
     }
     .check-circle svg {
@@ -251,18 +253,18 @@
       box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.03),
         0 20px 60px -10px rgba(0, 0, 0, 0.5),
-        0 0 120px -20px rgba(212, 175, 55, 0.15);
+        0 0 120px -20px rgba(var(--gold-main-rgb), 0.15);
     }
     .vid-main:hover { border-color: var(--border-hover); }
     .vid-play {
       width: 72px; height: 72px;
       border-radius: 50%;
-      background: rgba(240, 199, 94, 0.15);
+      background: rgba(var(--gold-light-rgb), 0.15);
       border: 2px solid var(--gold-light);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 40px rgba(240, 199, 94, 0.25);
+      box-shadow: 0 0 40px rgba(var(--gold-light-rgb), 0.25);
     }
     .vid-play svg { width: 24px; height: 24px; fill: var(--gold-glow); margin-left: 4px; }
     .vid-label {
@@ -322,7 +324,7 @@
     .cal-btn:hover {
       border-color: var(--gold-light);
       color: var(--gold-glow);
-      background: rgba(240, 199, 94, 0.05);
+      background: rgba(var(--gold-light-rgb), 0.05);
     }
 
     /* ── Proof grid ── */
@@ -344,7 +346,7 @@
     }
     .proof-thumb {
       aspect-ratio: 16/9;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(15, 14, 20, 0.6) 100%);
+      background: linear-gradient(135deg, rgba(var(--gold-main-rgb), 0.12) 0%, rgba(21,21,23, 0.6) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -396,7 +398,7 @@
     }
     .breakout-thumb {
       aspect-ratio: 16/9;
-      background: linear-gradient(135deg, #0f0f18 0%, #1a1530 100%);
+      background: linear-gradient(135deg, #151517 0%, #242428 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -417,7 +419,7 @@
     .breakout-play {
       width: 48px; height: 48px;
       border-radius: 50%;
-      background: rgba(240, 199, 94, 0.15);
+      background: rgba(var(--gold-light-rgb), 0.15);
       border: 1.5px solid var(--gold-light);
       display: flex;
       align-items: center;
@@ -478,7 +480,7 @@
       justify-content: center;
       flex-shrink: 0;
       margin-top: 1px;
-      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 4px 16px rgba(var(--gold-main-rgb), 0.35);
     }
     .step-text p {
       font-size: 14px;
@@ -548,7 +550,7 @@
 
     <div class="bar"><span class="dot"></span>You're registered — Monday May 6 @ 6pm CT</div>
 
-    <nav><div class="logo"><img src="/images/logo-256.png?v=4" alt="Wholesale Elite Network" style="height:80px;width:auto;display:block;"></div></nav>
+    <nav><div class="logo"><img src="/images/fee-finders-logo.png?v=1" alt="Fee Finders" style="height:64px;width:auto;max-width:100%;object-fit:contain;display:block;"></div></nav>
 
     <!-- HERO -->
     <div class="confirm-hero">

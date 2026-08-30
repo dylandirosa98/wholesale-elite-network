@@ -41,14 +41,63 @@ app.get('/event',         send('webinar.html'));
 app.get('/confirmation',  send('confirmation.html'));
 
 // ── Resend email helpers ──────────────────────────────────────────────
-async function sendResendEmail({ subject, html, to, replyTo }) {
+function brandFromReq(req) {
+  const bodyBrand = String(req.body?.brand || '').trim().toLowerCase();
+  if (bodyBrand === 'ff' || bodyBrand === 'wen') return bodyBrand;
+  const origin = String(req.headers.origin || req.headers.referer || '');
+  try {
+    const h = new URL(origin).hostname.replace(/^www\./i, '').toLowerCase();
+    if (h === 'feefinders.xyz' || h.endsWith('.feefinders.xyz')) return 'ff';
+    if (h === 'wholesalingelitenetwork.com' || h.endsWith('.wholesalingelitenetwork.com')) return 'wen';
+  } catch (_) {}
+  return 'ff';
+}
+
+function requestOrigin(req, brand) {
+  if (req.headers.origin) return String(req.headers.origin).replace(/\/$/, '');
+  try {
+    if (req.headers.referer) return new URL(req.headers.referer).origin;
+  } catch (_) {}
+  return brand === 'wen' ? 'https://wholesalingelitenetwork.com' : 'https://feefinders.xyz';
+}
+
+function brandMeta(req) {
+  const brand = brandFromReq(req);
+  const origin = requestOrigin(req, brand);
+  if (brand === 'wen') {
+    return {
+      brand,
+      name: 'Wholesaling Elite Network',
+      logo: `${origin}/images/logo-512.png`,
+      logoWidth: 160,
+      btnBg: 'linear-gradient(135deg,#F0C75E,#D4AF37)',
+      btnColor: '#1a1408',
+      link: '#F5D77E',
+      wrapBg: 'linear-gradient(135deg,#D4AF37,#F0C75E)',
+      domain: 'wholesalingelitenetwork.com',
+    };
+  }
+  return {
+    brand,
+    name: 'Fee Finders',
+    logo: `${origin}/images/fee-finders-logo.png`,
+    logoWidth: 276,
+    btnBg: 'linear-gradient(135deg,#E5E7EB,#9CA3AF)',
+    btnColor: '#09090B',
+    link: '#FFFFFF',
+    wrapBg: 'linear-gradient(135deg,#9CA3AF,#E5E7EB)',
+    domain: 'feefinders.xyz',
+  };
+}
+
+async function sendResendEmail({ subject, html, to, replyTo, fromName }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error('RESEND_API_KEY missing');
   const recipients = to
     ? (Array.isArray(to) ? to : [to])
     : ['zachkachai07@gmail.com', 'nolan23mc@gmail.com', 'dylandirosa980@gmail.com'];
   const body = {
-    from: process.env.RESEND_FROM || 'Wholesaling Elite Network <hello@wholesalingelitenetwork.com>',
+    from: process.env.RESEND_FROM || `${fromName || 'Fee Finders'} <hello@wholesalingelitenetwork.com>`,
     to: recipients,
     subject,
     html,
@@ -77,16 +126,15 @@ function notificationRecipients(influencer) {
 }
 
 const RESOURCES_DRIVE_URL = 'https://drive.google.com/drive/folders/1IiP1v_UMGu7iBsGhH7Jwe7N7VnNdeGXd?usp=drive_link';
-const LOGO_URL = 'https://wholesalingelitenetwork.com/images/logo-512.png';
 
-function resourcesEmailHtml(firstName) {
+function resourcesEmailHtml(firstName, meta) {
   const name = (firstName || '').trim() || 'there';
-  return `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#09090F;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#F5F5F7;">
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#09090F;padding:32px 16px;">
+  return `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#09090B;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#F5F5F7;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#09090B;padding:32px 16px;">
     <tr><td align="center">
-      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width:560px;background:#0E0E16;border:1px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width:560px;background:#111113;border:1px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;">
         <tr><td align="center" style="padding:32px 24px 8px;">
-          <img src="${LOGO_URL}" alt="Wholesaling Elite Network" width="160" style="display:block;border:0;outline:none;text-decoration:none;height:auto;">
+          <img src="${meta.logo}" alt="${esc(meta.name)}" width="${meta.logoWidth}" style="display:block;border:0;outline:none;text-decoration:none;width:${meta.logoWidth}px;max-width:100%;height:auto;object-fit:contain;">
         </td></tr>
         <tr><td style="padding:8px 32px 0;">
           <h1 style="margin:0;font-size:24px;font-weight:800;letter-spacing:-0.02em;color:#FFFFFF;text-align:center;">Your FREE Wholesale Real Estate Resources</h1>
@@ -96,16 +144,16 @@ function resourcesEmailHtml(firstName) {
           <p style="margin:0 0 14px;font-size:15.5px;line-height:1.6;color:rgba(245,245,247,0.88);">Thanks for signing up! Here's the link to claim your free wholesale real estate resources:</p>
         </td></tr>
         <tr><td align="center" style="padding:16px 32px 8px;">
-          <a href="${RESOURCES_DRIVE_URL}" style="display:inline-block;padding:14px 30px;border-radius:100px;background:linear-gradient(135deg,#F0C75E,#D4AF37);color:#1a1408;font-weight:700;font-size:15px;text-decoration:none;letter-spacing:-0.005em;">Claim My Free Resources →</a>
+          <a href="${RESOURCES_DRIVE_URL}" style="display:inline-block;padding:14px 30px;border-radius:100px;background:${meta.btnBg};color:${meta.btnColor};font-weight:700;font-size:15px;text-decoration:none;letter-spacing:-0.005em;">Claim My Free Resources →</a>
         </td></tr>
         <tr><td style="padding:8px 32px 24px;">
           <p style="margin:14px 0 0;font-size:13px;line-height:1.55;color:rgba(245,245,247,0.55);text-align:center;">Or paste this link into your browser:<br>
-            <a href="${RESOURCES_DRIVE_URL}" style="color:#F5D77E;word-break:break-all;">${RESOURCES_DRIVE_URL}</a>
+            <a href="${RESOURCES_DRIVE_URL}" style="color:${meta.link};word-break:break-all;">${RESOURCES_DRIVE_URL}</a>
           </p>
         </td></tr>
         <tr><td style="padding:18px 32px 28px;border-top:1px solid rgba(255,255,255,0.06);">
           <p style="margin:0;font-size:12px;line-height:1.55;color:rgba(245,245,247,0.45);text-align:center;">
-            Wholesaling Elite LLC &nbsp;·&nbsp; wholesalingelitenetwork.com
+            Wholesaling Elite LLC &nbsp;·&nbsp; ${esc(meta.domain)}
           </p>
         </td></tr>
       </table>
@@ -126,10 +174,12 @@ function rowsHtml(fields) {
     </tr>`).join('');
 }
 
-function emailWrap(title, tableRows) {
+function emailWrap(title, tableRows, meta) {
+  const wrapBg = meta?.wrapBg || 'linear-gradient(135deg,#9CA3AF,#E5E7EB)';
+  const btnColor = meta?.btnColor || '#09090B';
   return `<!DOCTYPE html><html><body style="margin:0;padding:24px;background:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
     <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-      <div style="padding:18px 24px;background:linear-gradient(135deg,#D4AF37,#F0C75E);color:#1a1408;font-weight:700;font-size:16px;">
+      <div style="padding:18px 24px;background:${wrapBg};color:${btnColor};font-weight:700;font-size:16px;">
         ${esc(title)}
       </div>
       <table style="width:100%;border-collapse:collapse;">${tableRows}</table>
@@ -141,8 +191,10 @@ function emailWrap(title, tableRows) {
 app.post('/api/lead', async (req, res) => {
   try {
     const { firstName='', lastName='', phone='', email='', consent='', influencer='', source='' } = req.body || {};
+    const meta = brandMeta(req);
     const subject = `New Lead: ${firstName} ${lastName} (${influencer || '—'} / ${source || '—'})`;
     const rows = rowsHtml([
+      ['Brand',      meta.name],
       ['Influencer', influencer],
       ['Source',     source],
       ['First Name', firstName],
@@ -154,17 +206,19 @@ app.post('/api/lead', async (req, res) => {
     ]);
     await sendResendEmail({
       subject,
-      html: emailWrap('New Lead — Tools Form', rows),
+      html: emailWrap('New Lead — Tools Form', rows, meta),
       to: notificationRecipients(influencer),
       replyTo: email || undefined,
+      fromName: meta.name,
     });
     // Customer-facing email with the Drive resources link
     if (email) {
       try {
         await sendResendEmail({
           subject: 'Your FREE Wholesale Real Estate Resources',
-          html: resourcesEmailHtml(firstName),
+          html: resourcesEmailHtml(firstName, meta),
           to: email,
+          fromName: meta.name,
         });
       } catch (custErr) {
         console.error('customer email failed:', custErr.message);
@@ -180,8 +234,10 @@ app.post('/api/lead', async (req, res) => {
 app.post('/api/application', async (req, res) => {
   try {
     const b = req.body || {};
+    const meta = brandMeta(req);
     const subject = `New Application: ${b.firstName||''} ${b.lastName||''} (${b.influencer || '—'} / ${b.source || '—'})`;
     const rows = rowsHtml([
+      ['Brand',       meta.name],
       ['Influencer',  b.influencer],
       ['Source',      b.source],
       ['First Name',  b.firstName],
@@ -197,9 +253,10 @@ app.post('/api/application', async (req, res) => {
     ]);
     await sendResendEmail({
       subject,
-      html: emailWrap('New Application — /apply', rows),
+      html: emailWrap('New Application — /apply', rows, meta),
       to: notificationRecipients(b.influencer),
       replyTo: b.email || undefined,
+      fromName: meta.name,
     });
     res.json({ ok: true });
   } catch (err) {
