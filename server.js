@@ -67,13 +67,13 @@ function brandMeta(req) {
   if (brand === 'wen') {
     return {
       brand,
-      name: 'Wholesaling Elite Network',
-      logo: `${origin}/images/logo-512.png`,
-      logoWidth: 160,
-      btnBg: 'linear-gradient(135deg,#F0C75E,#D4AF37)',
-      btnColor: '#1a1408',
-      link: '#F5D77E',
-      wrapBg: 'linear-gradient(135deg,#D4AF37,#F0C75E)',
+      name: 'Fee Finders',
+      logo: `${origin}/images/fee-finders-logo.png`,
+      logoWidth: 276,
+      btnBg: 'linear-gradient(135deg,#8BD8FF,#159DEB)',
+      btnColor: '#09090B',
+      link: '#FFFFFF',
+      wrapBg: 'linear-gradient(135deg,#159DEB,#8BD8FF)',
       domain: 'wholesalingelitenetwork.com',
     };
   }
@@ -82,10 +82,10 @@ function brandMeta(req) {
     name: 'Fee Finders',
     logo: `${origin}/images/fee-finders-logo.png`,
     logoWidth: 276,
-    btnBg: 'linear-gradient(135deg,#E5E7EB,#9CA3AF)',
+    btnBg: 'linear-gradient(135deg,#8BD8FF,#159DEB)',
     btnColor: '#09090B',
     link: '#FFFFFF',
-    wrapBg: 'linear-gradient(135deg,#9CA3AF,#E5E7EB)',
+    wrapBg: 'linear-gradient(135deg,#159DEB,#8BD8FF)',
     domain: 'feefinders.xyz',
   };
 }
@@ -153,7 +153,7 @@ function resourcesEmailHtml(firstName, meta) {
         </td></tr>
         <tr><td style="padding:18px 32px 28px;border-top:1px solid rgba(255,255,255,0.06);">
           <p style="margin:0;font-size:12px;line-height:1.55;color:rgba(245,245,247,0.45);text-align:center;">
-            Wholesaling Elite LLC &nbsp;·&nbsp; ${esc(meta.domain)}
+            Fee Finders LLC &nbsp;·&nbsp; ${esc(meta.domain)}
           </p>
         </td></tr>
       </table>
@@ -175,7 +175,7 @@ function rowsHtml(fields) {
 }
 
 function emailWrap(title, tableRows, meta) {
-  const wrapBg = meta?.wrapBg || 'linear-gradient(135deg,#9CA3AF,#E5E7EB)';
+  const wrapBg = meta?.wrapBg || 'linear-gradient(135deg,#159DEB,#8BD8FF)';
   const btnColor = meta?.btnColor || '#09090B';
   return `<!DOCTYPE html><html><body style="margin:0;padding:24px;background:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
     <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
