@@ -11,7 +11,15 @@ app.use(express.urlencoded({ extended: true, limit: '64kb' }));
 const send = (file) => (req, res) =>
   res.sendFile(path.join(__dirname, 'public', file));
 
-app.get('/', send('home.html'));
+app.get('/', (req, res) => {
+  const hostname = req.hostname.replace(/^www\./i, '').toLowerCase();
+  if (hostname === 'thefeefinders.com') return send('fee-finders-ai/index.html')(req, res);
+  return send('home.html')(req, res);
+});
+
+// Keep the marketing page on its canonical Fee Finders domain; its assets remain public below.
+app.get(['/fee-finders-ai', '/fee-finders-ai/index.html'], (req, res) =>
+  res.redirect(308, 'https://www.thefeefinders.com/'));
 
 // Inner-circle style pages (REI Network variants)
 app.get('/reinetwork',           send('circle/Nolan TikTok.html'));
