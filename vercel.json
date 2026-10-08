@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/fee-finders-ai",
+      "destination": "https://www.thefeefinders.com/",
+      "permanent": true
+    },
+    {
+      "source": "/fee-finders-ai/",
+      "destination": "https://www.thefeefinders.com/",
+      "permanent": true
+    },
+    {
+      "source": "/fee-finders-ai/index.html",
+      "destination": "https://www.thefeefinders.com/",
+      "permanent": true
+    }
+  ]
+}
